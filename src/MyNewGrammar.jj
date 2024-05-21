@@ -60,10 +60,46 @@ SKIP :
 
 TOKEN : /* OPERATORS */
 {
-  < PLUS : "+" >
-| < MINUS : "-" >
-| < MULTIPLY : "*" >
-| < DIVIDE : "/" >
+
+    < RECEBE: "=" > { System.out.println("Operador de Atribuicao: " + image); }
+  | < MAIOR: ">" > { System.out.println("Operador de Maior: " + image); }
+  | < MENOR: "<" > { System.out.println("Operador de Menor: " + image); }
+  | < NEGACAO: "!" > { System.out.println("Operador de Negação: " + image); }
+  | < DOIS_PONTOS: ":" > { System.out.println("Operador de Dois Pontos: " + image); }
+  | < IGUAL: "==" > { System.out.println("Operador de Igualdade: " + image); }
+  | < ESTRIMENTE_IGUAL: "===" > { System.out.println("Operador de Estritamente igual: " + image); }
+  | < MAIOR_IGUAL: "<=" > { System.out.println("Operador de Menor Igual: " + image); }
+  | < MENOR_IGUAL: ">=" > { System.out.println("Operador de Maior Igual: " + image); }
+  | < DIFERENTE: "!=" > { System.out.println("Operador de Diferente: " + image); }
+  | < ESTRITAMENTE_DIFERENTE: "!==" > { System.out.println("Operador de Estritamente Diferente: " + image); }
+  | < OR: "||" > { System.out.println("Operador Ou: " + image); }
+  | < AND: "&&" > { System.out.println("Operador E: " + image); }
+  | < INCREMENTO: "++" > { System.out.println("Operador de Incremento: " + image); }
+  | < DECREMENTO: "--" > { System.out.println("Operador de Decremento: " + image); }
+  | < MAIS: "+" > { System.out.println("Operador de Soma: " + image); }
+  | < MENOS: "-" > { System.out.println("Operador de Subtracao: " + image); }
+  | < ASTERISCO: "*" > { System.out.println("Operador de Multiplicacao: " + image); }
+  | < BARRA: "/" > { System.out.println("Operador de Divisao: " + image); }
+  | < PORCENTO: "%" > { System.out.println("Operador de Modulo: " + image); }
+  | < MAIS_IGUAL: "+=" > { System.out.println("Operador de Mais Igual: " + image); }
+  | < MENOS_IGUAL: "-=" > { System.out.println("Operador de Menos Igual: " + image); }
+  | < ASTERISCO_IGUAL: "*=" > { System.out.println("Operador de Vezes Igual: " + image); }
+  | < BARRA_IGUAL: "/=" > { System.out.println("Operador de Divisao Igual: " + image); }
+  | < PORCENTO_IGUAL: "%=" > { System.out.println("Operador de Modulo Igual: " + image); }
+}
+
+// DELIMITADORES
+TOKEN:
+{
+      <ABRE_PARENTESES: "("> { System.out.println("Abre Parentese: " + image); }
+    | <FECHA_PARENTESES: ")"> { System.out.println("Fecha Parentese: " + image); }
+    | <ABRE_CHAVE: "{"> { System.out.println("Abre Chaves: " + image); }
+    | <FECHA_CHAVE: "}"> { System.out.println("Fecha Chaves: " + image); }
+    | <ABRE_COLCHETE: "["> { System.out.println("Abre Cochetes: " + image); }
+    | <FECHA_COLCHETE: "]"> { System.out.println("Fecha Cochetes: " + image); }
+    | <PONTO_VIRGULA: ";"> { System.out.println("Ponto e Virgula: " + image); }
+    | <VIRGULA: ","> { System.out.println("Virgula: " + image); }
+    | <PONTO: "."> { System.out.println("Ponto: " + image); }
 }
 
 TOKEN :
@@ -75,52 +111,29 @@ TOKEN :
 int one_line() :
 {}
 {
-  sum() ";"
-  {
-    return 0;
-  }
-| ";"
-  {
-    return 1;
-  }
+  sum() ";" {  return 0;  } | ";" {  return 1; }
 }
 
 void sum() :
 {}
 {
-  term()
-  (
-    (
-      < PLUS >
-    | < MINUS >
-    )
-    term()
-  )*
+  term() (  (    < MAIS>   | < MENOS>   )  term())*
 }
 
 void term() :
 {}
 {
-  unary()
-  (
-    (
-      < MULTIPLY >
-    | < DIVIDE >
-    )
-    unary()
-  )*
+  unary()(  (    <ASTERISCO>   | < BARRA>   )  unary())*
 }
 
 void unary() :
 {}
 {
-  < MINUS > element()
-| element()
+  < MENOS> element() | element()
 }
 
 void element() :
 {}
 {
-  < CONSTANT >
-| "(" sum() ")"
+  < CONSTANT > | "(" sum() ")"
 }
