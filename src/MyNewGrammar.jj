@@ -60,7 +60,6 @@ SKIP :
 
 TOKEN : /* OPERATORS */
 {
-
     < RECEBE: "=" > { System.out.println("Operador de Atribuicao: " + image); }
   | < MAIOR: ">" > { System.out.println("Operador de Maior: " + image); }
   | < MENOR: "<" > { System.out.println("Operador de Menor: " + image); }
@@ -102,16 +101,13 @@ TOKEN:
     | <PONTO: "."> { System.out.println("Ponto: " + image); }
 }
 
-// Definição de tokens para palavras reservadas e elementos da linguagem
+// Palavras reservadas e elementos da linguagem
 TOKEN :
 {
-      <LET: "let"> { System.out.println("Tipo let: " + image); }
-    | <TIPO_NUMBER: "Number" > { System.out.println("Tipo Number: " + image); }
+   <TIPO_BOOLEAN: ("true" | "false")> { System.out.println("Tipo Booleano: " + image); }
+    | <LET: "let"> { System.out.println("Tipo let: " + image); }
     | <TIPO_UNDEFINED: "undefined"> { System.out.println("Tipo Undefined: " + image); }
-    | <TIPO_INT: "int"> { System.out.println("Tipo int: " + image); }
     | <TIPO_VAR: "var" > { System.out.println("Tipo Var: " + image); }
-    | <TIPO_FLOAT: "float" > { System.out.println("Tipo Float: " + image); }
-    | <TIPO_BOOL: "bool"> { System.out.println("Tipo Bool: " + image); }
     | <PALAVRA_NULL: "null" >  { System.out.println("Palavra Reservada: " + image); }
     | <PALAVRA_CLASS: "class" >  { System.out.println("Palavra Reservada: " + image); }
     | <PALAVRA_VOID: "void" >  { System.out.println("Tipo Void: " + image); }
@@ -129,17 +125,14 @@ TOKEN :
 }
 
 
+//TIPOS
 TOKEN:
 {
-    <TIPO_BOOLEAN: ("true" | false)> { System.out.println("Tipo Booleano: " + image); }
-    // ... tokens restantes ...
-}
+       < STRING_LITERAL: "\"" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* "\"" >
+     | < NUMBER: (["0"-"9"])+ ("." (["0"-"9"])+)? >
+     | < IDENTIFIER: (["a"-"z", "A"-"Z", "_"]) (["a"-"z", "A"-"Z", "0"-"9", "_"])* >
+ }
 
-TOKEN :
-{
-  < CONSTANT : (< DIGIT >)+ >
-| < #DIGIT : [ "0"-"9" ] >
-}
 
 int one_line() :
 {}
