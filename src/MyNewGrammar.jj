@@ -102,6 +102,39 @@ TOKEN:
     | <PONTO: "."> { System.out.println("Ponto: " + image); }
 }
 
+// Definição de tokens para palavras reservadas e elementos da linguagem
+TOKEN :
+{
+      <LET: "let"> { System.out.println("Tipo let: " + image); }
+    | <TIPO_NUMBER: "Number" > { System.out.println("Tipo Number: " + image); }
+    | <TIPO_UNDEFINED: "undefined"> { System.out.println("Tipo Undefined: " + image); }
+    | <TIPO_INT: "int"> { System.out.println("Tipo int: " + image); }
+    | <TIPO_VAR: "var" > { System.out.println("Tipo Var: " + image); }
+    | <TIPO_FLOAT: "float" > { System.out.println("Tipo Float: " + image); }
+    | <TIPO_BOOL: "bool"> { System.out.println("Tipo Bool: " + image); }
+    | <PALAVRA_NULL: "null" >  { System.out.println("Palavra Reservada: " + image); }
+    | <PALAVRA_CLASS: "class" >  { System.out.println("Palavra Reservada: " + image); }
+    | <PALAVRA_VOID: "void" >  { System.out.println("Tipo Void: " + image); }
+    | <RETURN: "return" >  { System.out.println("Palavra Reservada: " + image); }
+    | <STATIC: "static" >  { System.out.println("Palavra Reservada: " + image); }
+    | <IF: "if" >  { System.out.println("Palavra Reservada: " + image); }
+    | <ELSE: "else" >  { System.out.println("Palavra Reservada: " + image); }
+    | <TRUE: "true" >  { System.out.println("Palavra Reservada: " + image); }
+    | <FALSE: "false" >  { System.out.println("Palavra Reservada: " + image); }
+    | <PRINT: "console.log" >  { System.out.println("Palavra Reservada: " + image); }
+    | <INPUT: "prompt" >  { System.out.println("Palavra Reservada: " + image); }
+    | <WHILE: "while" >  { System.out.println("Palavra Reservada: " + image); }
+    | <BREAK: "break" >  { System.out.println("Palavra Reservada: " + image); }
+    | <CONTINUE: "continue" >  { System.out.println("Palavra Reservada: " + image); }
+}
+
+
+TOKEN:
+{
+    <TIPO_BOOLEAN: ("true" | false)> { System.out.println("Tipo Booleano: " + image); }
+    // ... tokens restantes ...
+}
+
 TOKEN :
 {
   < CONSTANT : (< DIGIT >)+ >
