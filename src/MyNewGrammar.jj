@@ -17,7 +17,7 @@ public class MyNewGrammar
     while (true)
     {
       System.out.println("Reading from standard input...");
-      System.out.print("Enter an expression like \"1+(2+3)*4;\" :");
+      System.out.print("Enter any expression from javascript :");
       try
       {
         switch (MyNewGrammar.one_line())
@@ -104,13 +104,9 @@ TOKEN:
 // Palavras reservadas e elementos da linguagem
 TOKEN :
 {
-   <TIPO_BOOLEAN: ("true" | "false")> { System.out.println("Tipo Booleano: " + image); }
-    | <LET: "let"> { System.out.println("Tipo let: " + image); }
-    | <TIPO_UNDEFINED: "undefined"> { System.out.println("Tipo Undefined: " + image); }
-    | <TIPO_VAR: "var" > { System.out.println("Tipo Var: " + image); }
-    | <PALAVRA_NULL: "null" >  { System.out.println("Palavra Reservada: " + image); }
-    | <PALAVRA_CLASS: "class" >  { System.out.println("Palavra Reservada: " + image); }
-    | <PALAVRA_VOID: "void" >  { System.out.println("Tipo Void: " + image); }
+     <CLASS: "class" >  { System.out.println("Palavra Reservada: " + image); }
+    | <NaN: "NaN" >  { System.out.println("Palavra Reservada: " + image); }
+    | <VOID: "void" >  { System.out.println("Tipo Void: " + image); }
     | <RETURN: "return" >  { System.out.println("Palavra Reservada: " + image); }
     | <STATIC: "static" >  { System.out.println("Palavra Reservada: " + image); }
     | <IF: "if" >  { System.out.println("Palavra Reservada: " + image); }
@@ -125,12 +121,24 @@ TOKEN :
 }
 
 
-//TIPOS
+//TIPOS PRIMITIVOS
 TOKEN:
 {
-       < STRING_LITERAL: "\"" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* "\"" >
-     | < NUMBER: (["0"-"9"])+ ("." (["0"-"9"])+)? >
-     | < IDENTIFIER: (["a"-"z", "A"-"Z", "_"]) (["a"-"z", "A"-"Z", "0"-"9", "_"])* >
+       <STRING_LITERAL: "\"" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* "\"" >
+     | <IDENTIFIER: (["a"-"z", "A"-"Z", "_"]) (["a"-"z", "A"-"Z", "0"-"9", "_"])* >
+     | <NUMBER: (["0"-"9"])+ ("." (["0"-"9"])+)? >
+     | <BIGINT: (["0"-"9"])+ "n" >
+     | <UNDEFINED: "undefined"> { System.out.println("Tipo Undefined: " + image); }
+     | <NULL: "null" >  { System.out.println("Palavra Reservada: " + image); }
+     | <BOOLEAN: ("true" | "false")> { System.out.println("Tipo Booleano: " + image); }
+     | <SYMBOL: "Symbol" "(" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* ")" >
+ }
+
+ //DECLATAÇÃO DE VARIAVEIS
+ TOKEN:
+ {
+    <LET: "let"> { System.out.println("Tipo let: " + image); }
+   | <VAR: "var" > { System.out.println("Tipo Var: " + image); }
  }
 
 
@@ -162,4 +170,10 @@ void element() :
 {}
 {
   < CONSTANT > | "(" sum() ")"
+}
+
+TOKEN :
+{
+  < CONSTANT : (< DIGIT >)+ >
+| < #DIGIT : [ "0"-"9" ] >
 }
