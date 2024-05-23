@@ -124,17 +124,20 @@ TOKEN :
 //TIPOS PRIMITIVOS
 TOKEN:
 {
-       <STRING_LITERAL: "\"" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* "\"" >
-     | <IDENTIFIER: (["a"-"z", "A"-"Z", "_"]) (["a"-"z", "A"-"Z", "0"-"9", "_"])* >
+    < STRING_LITERAL: ("\"" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* "\"") |
+                      ("'" (~["'","\\"] | "\\" ["'","\\","b","f","n","r","t"])* "'") >
+     | <IDENTIFIER: (["a"-"z", "A"-"Z", "_", "$", "ª", "º"]) (["a"-"z", "A"-"Z", "0"-"9", "_",  "$", "ª", "º"])* >
      | <NUMBER: (["0"-"9"])+ ("." (["0"-"9"])+)? >
      | <BIGINT: (["0"-"9"])+ "n" >
      | <UNDEFINED: "undefined"> { System.out.println("Tipo Undefined: " + image); }
      | <NULL: "null" >  { System.out.println("Palavra Reservada: " + image); }
      | <BOOLEAN: ("true" | "false")> { System.out.println("Tipo Booleano: " + image); }
      | <SYMBOL: "Symbol" "(" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* ")" >
+     |	<#LETRA: (["a"-"z", "A"-"Z"])>
+     | 	<#DIGITO: ["0"-"9"]>
  }
 
- //DECLATAÇÃO DE VARIAVEIS
+ //DECLARAÇÃO DE VARIAVEIS
  TOKEN:
  {
     <LET: "let"> { System.out.println("Tipo let: " + image); }
