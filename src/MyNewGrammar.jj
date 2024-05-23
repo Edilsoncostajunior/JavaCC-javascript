@@ -1,6 +1,3 @@
-/**
- * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
- */
 PARSER_BEGIN(MyNewGrammar)
 
 import java.io.BufferedReader;
@@ -8,38 +5,28 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-
-public class MyNewGrammar
-{
-  public static void main(String args []) throws ParseException
-  {
+public class MyNewGrammar {
+  public static void main(String args []) throws ParseException {
     MyNewGrammar parser = new MyNewGrammar(System.in);
-    while (true)
-    {
+    while (true) {
       System.out.println("Reading from standard input...");
       System.out.print("Enter any expression from javascript :");
-      try
-      {
-        switch (MyNewGrammar.one_line())
-        {
+      try {
+        switch (MyNewGrammar.one_line()) {
           case 0 :
-          System.out.println("OK.");
-          break;
+            System.out.println("OK.");
+            break;
           case 1 :
-          System.out.println("Goodbye.");
-          break;
+            System.out.println("Goodbye.");
+            break;
           default :
-          break;
+            break;
         }
-      }
-      catch (Exception e)
-      {
+      } catch (Exception e) {
         System.out.println("NOK.");
         System.out.println(e.getMessage());
         MyNewGrammar.ReInit(System.in);
-      }
-      catch (Error e)
-      {
+      } catch (Error e) {
         System.out.println("Oops.");
         System.out.println(e.getMessage());
         break;
@@ -50,209 +37,150 @@ public class MyNewGrammar
 
 PARSER_END(MyNewGrammar)
 
-SKIP :
-{
-  " "
-| "\r"
-| "\t"
-| "\n"
+// Espaços em branco
+SKIP : {
+  " " | "\r" | "\t" | "\n"
 }
 
-TOKEN : /* OPERATORS */
-{
-    <RECEBE: "=" > { System.out.println("Operador de Atribuicao: " + image); }
-  | <MAIOR: ">" > { System.out.println("Operador de Maior: " + image); }
-  | <MENOR: "<" > { System.out.println("Operador de Menor: " + image); }
-  | <NEGACAO: "!" > { System.out.println("Operador de Negação: " + image); }
-  | <DOIS_PONTOS: ":" > { System.out.println("Operador de Dois Pontos: " + image); }
-  | <ATRIBUICAO: "\=" > { System.out.println("Operador de Igualdade: " + image); }
-  | <IGUAL: "==" > { System.out.println("Operador de Igualdade: " + image); }
-  | <ESTRIMENTE_IGUAL: "===" > { System.out.println("Operador de Estritamente igual: " + image); }
-  | <MAIOR_IGUAL: "<=" > { System.out.println("Operador de Menor Igual: " + image); }
-  | <MENOR_IGUAL: ">=" > { System.out.println("Operador de Maior Igual: " + image); }
-  | <DIFERENTE: "!=" > { System.out.println("Operador de Diferente: " + image); }
-  | <ESTRITAMENTE_DIFERENTE: "!==" > { System.out.println("Operador de Estritamente Diferente: " + image); }
-  | <OR: "||" > { System.out.println("Operador Ou: " + image); }
-  | <AND: "&&" > { System.out.println("Operador E: " + image); }
-  | <INCREMENTO: "++" > { System.out.println("Operador de Incremento: " + image); }
-  | <DECREMENTO: "--" > { System.out.println("Operador de Decremento: " + image); }
-  | <MAIS: "+" > { System.out.println("Operador de Soma: " + image); }
-  | <MENOS: "-" > { System.out.println("Operador de Subtracao: " + image); }
-  | <ASTERISCO: "*" > { System.out.println("Operador de Multiplicacao: " + image); }
-  | <BARRA: "/" > { System.out.println("Operador de Divisao: " + image); }
-  | <PORCENTO: "%" > { System.out.println("Operador de Modulo: " + image); }
-  | <MAIS_IGUAL: "+=" > { System.out.println("Operador de Mais Igual: " + image); }
-  | <MENOS_IGUAL: "-=" > { System.out.println("Operador de Menos Igual: " + image); }
-  | <ASTERISCO_IGUAL: "*=" > { System.out.println("Operador de Vezes Igual: " + image); }
-  | <BARRA_IGUAL: "/=" > { System.out.println("Operador de Divisao Igual: " + image); }
-  | <PORCENTO_IGUAL: "%=" > { System.out.println("Operador de Modulo Igual: " + image); }
+// Operadores
+TOKEN : {
+    <ATRIBUICAO: "=" >
+  | <MAIOR: ">" >
+  | <MENOR: "<" >
+  | <NEGACAO: "!" >
+  | <DOIS_PONTOS: ":" >
+  | <IGUAL: "==" >
+  | <ESTRITAMENTE_IGUAL: "===" >
+  | <MENOR_IGUAL: "<=" >
+  | <MAIOR_IGUAL: ">=" >
+  | <DIFERENTE: "!=" >
+  | <ESTRITAMENTE_DIFERENTE: "!==" >
+  | <OR: "||" >
+  | <AND: "&&" >
+  | <INCREMENTO: "++" >
+  | <DECREMENTO: "--" >
+  | <MAIS: "+" >
+  | <MENOS: "-" >
+  | <ASTERISCO: "*" >
+  | <BARRA: "/" >
+  | <PORCENTO: "%" >
+  | <MAIS_IGUAL: "+=" >
+  | <MENOS_IGUAL: "-=" >
+  | <ASTERISCO_IGUAL: "*=" >
+  | <BARRA_IGUAL: "/=" >
+  | <PORCENTO_IGUAL: "%=" >
 }
 
-// DELIMITADORES
-TOKEN:
-{
-      <ABRE_PARENTESES: "("> { System.out.println("Abre Parentese: " + image); }
-    | <FECHA_PARENTESES: ")"> { System.out.println("Fecha Parentese: " + image); }
-    | <ABRE_CHAVE: "{"> { System.out.println("Abre Chaves: " + image); }
-    | <FECHA_CHAVE: "}"> { System.out.println("Fecha Chaves: " + image); }
-    | <ABRE_COLCHETE: "["> { System.out.println("Abre Cochetes: " + image); }
-    | <FECHA_COLCHETE: "]"> { System.out.println("Fecha Cochetes: " + image); }
-    | <PONTO_VIRGULA: ";"> { System.out.println("Ponto e Virgula: " + image); }
-    | <VIRGULA: ","> { System.out.println("Virgula: " + image); }
-    | <PONTO: "."> { System.out.println("Ponto: " + image); }
+// Delimitadores
+TOKEN : {
+    <ABRE_PARENTESES: "(">
+  | <FECHA_PARENTESES: ")">
+  | <ABRE_CHAVE: "{">
+  | <FECHA_CHAVE: "}">
+  | <ABRE_COLCHETE: "[">
+  | <FECHA_COLCHETE: "]">
+  | <PONTO_VIRGULA: ";">
+  | <VIRGULA: ",">
+  | <PONTO: ".">
 }
 
-// Palavras reservadas e elementos da linguagem
-TOKEN :
-{
-     <CLASS: "class" >  { System.out.println("Palavra Reservada: " + image); }
-    | <NaN: "NaN" >  { System.out.println("Palavra Reservada: " + image); }
-    | <VOID: "void" >  { System.out.println("Tipo Void: " + image); }
-    | <RETURN: "return" >  { System.out.println("Palavra Reservada: " + image); }
-    | <STATIC: "static" >  { System.out.println("Palavra Reservada: " + image); }
-    | <IF: "if" >  { System.out.println("Palavra Reservada: " + image); }
-    | <ELSE: "else" >  { System.out.println("Palavra Reservada: " + image); }
-    | <TRUE: "true" >  { System.out.println("Palavra Reservada: " + image); }
-    | <FALSE: "false" >  { System.out.println("Palavra Reservada: " + image); }
-    | <CONSOLE: "console" >  { System.out.println("Palavra Reservada: " + image); }
-    | <LOG: "log" >  { System.out.println("Palavra Reservada: " + image); }
-    | <INPUT: "prompt" >  { System.out.println("Palavra Reservada: " + image); }
-    | <WHILE: "while" >  { System.out.println("Palavra Reservada: " + image); }
-    | <BREAK: "break" >  { System.out.println("Palavra Reservada: " + image); }
-    | <CONTINUE: "continue" >  { System.out.println("Palavra Reservada: " + image); }
-    | <FUNCTION: "function" >  { System.out.println("Palavra Reservada: " + image); }
-
+// Palavras reservadas
+TOKEN : {
+    <CLASS: "class">
+  | <NaN: "NaN">
+  | <VOID: "void">
+  | <RETURN: "return">
+  | <STATIC: "static">
+  | <IF: "if">
+  | <ELSE: "else">
+  | <TRUE: "true">
+  | <FALSE: "false">
+  | <CONSOLE: "console">
+  | <LOG: "log">
+  | <PROMPT: "prompt">
+  | <WHILE: "while">
+  | <BREAK: "break">
+  | <CONTINUE: "continue">
+  | <FUNCTION: "function">
 }
 
-
-//TIPOS PRIMITIVOS
-TOKEN:
-{
-    < STRING_LITERAL: ("\"" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* "\"") |
-                      ("'" (~["'","\\"] | "\\" ["'","\\","b","f","n","r","t"])* "'") >
-     | <IDENTIFIER: (["a"-"z", "A"-"Z", "_", "$", "ª", "º"]) (["a"-"z", "A"-"Z", "0"-"9", "_",  "$", "ª", "º"])* >
-     | <NUMBER: (["0"-"9"])* ("." (["0"-"9"])+)? >
-     | <BIGINT: (["0"-"9"])+ "n" >
-     | <UNDEFINED: "undefined"> { System.out.println("Tipo Undefined: " + image); }
-     | <NULL: "null" >  { System.out.println("Palavra Reservada: " + image); }
-     | <BOOLEAN: ("true" | "false")> { System.out.println("Tipo Booleano: " + image); }
-     | <SYMBOL: "Symbol" "(" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* ")" >
-     |	<#LETRA: (["a"-"z", "A"-"Z"])>
-     | 	<#DIGITO: ["0"-"9"]>
- }
-
- //DECLARAÇÃO DE VARIAVEIS
- TOKEN:
- {
-    <LET: "let"> { System.out.println("Tipo let: " + image); }
-   | <VAR: "var" > { System.out.println("Tipo Var: " + image); }
- }
-
-void Value() :
-{}
-{
-    <NUMBER>
-  | <BOOLEAN>
-  | <NULL>
-  | <UNDEFINED>
-  | <STRING_LITERAL>
-  | <IDENTIFIER>
-  | <ABRE_PARENTESES> Value() <FECHA_PARENTESES>
-}
-void Tipos() :
-{}
-{
-    <BOOLEAN>
-  | <NULL>
-  | <UNDEFINED>
-  | "number"
-  | "bigint"
-  | "string"
-  | "symbol"
+// Tipos primitivos e literais
+TOKEN : {
+    <STRING_LITERAL: "\"" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* "\"" |
+                     "'" (~["'","\\"] | "\\" ["'","\\","b","f","n","r","t"])* "'">
+  | <IDENTIFIER: (["a"-"z", "A"-"Z", "_", "$", "ª", "º"]) (["a"-"z", "A"-"Z", "0"-"9", "_",  "$", "ª", "º"])*>
+  | <NUMBER: (["0"-"9"])+ ("." (["0"-"9"])+)? >
+  | <BIGINT: (["0"-"9"])+ "n">
+  | <UNDEFINED: "undefined">
+  | <NULL: "null">
+  | <BOOLEAN: ("true" | "false")>
+  | <SYMBOL: "Symbol" "(" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* ")">
 }
 
+// Declaração de variáveis
+TOKEN : {
+    <LET: "let">
+  | <VAR: "var">
+}
 
-
-void Program() :
-{}
-{
+// Regras gramaticais
+void Program() : {} {
     (ConsoleLog() | VariableDeclaration() | FunctionDeclaration() | Assignment())* <EOF>
 }
 
-void ConsoleLog() :
-{}
-{
+void ConsoleLog() : {} {
     <CONSOLE> <PONTO> <LOG> <ABRE_PARENTESES> ArgumentList() <FECHA_PARENTESES> (<PONTO_VIRGULA>)?
 }
 
-void ArgumentList() :
-{}
-{
+void ArgumentList() : {} {
     Value() ( <VIRGULA> Value() )*
 }
 
-void VariableDeclaration() :
-{}
-{
-    Tipos() <IDENTIFIER> <ATRIBUICAO> Value() (<PONTO_VIRGULA>)?
+void VariableDeclaration() : {} {
+    ( <LET> | <VAR> ) <IDENTIFIER> <ATRIBUICAO> Value() (<PONTO_VIRGULA>)?
 }
 
-void FunctionDeclaration() :
-{}
-{
+void FunctionDeclaration() : {} {
     <FUNCTION> <IDENTIFIER> <ABRE_PARENTESES> ParameterList() <FECHA_PARENTESES> <ABRE_CHAVE> (Assignment() | FunctionCall())* <FECHA_CHAVE>
 }
 
-void ParameterList() :
-{}
-{
+void ParameterList() : {} {
     ( <IDENTIFIER> ( <VIRGULA> <IDENTIFIER> )* )?
 }
 
-void Assignment() :
-{}
-{
+void Assignment() : {} {
     <IDENTIFIER> <ATRIBUICAO> Value() (<PONTO_VIRGULA>)?
 }
 
-void FunctionCall() :
-{}
-{
+void FunctionCall() : {} {
     <IDENTIFIER> <ABRE_PARENTESES> ArgumentList() <FECHA_PARENTESES> (<PONTO_VIRGULA>)?
 }
 
-int one_line() :
-{}
-{
-  sum() ";" {  return 0;  } | ";" {  return 1; }
+void Value() : {} {
+    <NUMBER> | <BOOLEAN> | <NULL> | <UNDEFINED> | <STRING_LITERAL> | <IDENTIFIER> | <ABRE_PARENTESES> Value() <FECHA_PARENTESES>
 }
 
-void sum() :
-{}
-{
-  term() (  (    < MAIS>   | < MENOS>   )  term())*
+int one_line() : {} {
+    sum() <PONTO_VIRGULA> { return 0; } | <PONTO_VIRGULA> { return 1; }
 }
 
-void term() :
-{}
-{
-  unary()(  (    <ASTERISCO>   | < BARRA>   )  unary())*
+void sum() : {} {
+    term() ( ( <MAIS> | <MENOS> ) term() )*
 }
 
-void unary() :
-{}
-{
-  < MENOS> element() | element()
+void term() : {} {
+    unary() ( ( <ASTERISCO> | <BARRA> ) unary() )*
 }
 
-void element() :
-{}
-{
-  < CONSTANT > | "(" sum() ")"
+void unary() : {} {
+    <MENOS> element() | element()
 }
 
-TOKEN :
-{
-  < CONSTANT : (< DIGIT >)+ >
-| < #DIGIT : [ "0"-"9" ] >
+void element() : {} {
+    <CONSTANT> | <ABRE_PARENTESES> sum() <FECHA_PARENTESES>
+}
+
+TOKEN : {
+    <CONSTANT : (<DIGIT>)+>
+  | <#DIGIT : ["0"-"9"]>
 }
