@@ -11,71 +11,40 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class MyNewGrammar {
-  public static void main(String[] args) throws ParseException {
-          // Arquivo selecionado
-          InputStream inputStream = null;
 
-          // Criar um seletor de arquivos
-          JFileChooser fileChooser = new JFileChooser();
-          fileChooser.setDialogTitle("Select a file to parse");
-
-          // Mostrar o diálogo de abertura; este método não retorna até que o diálogo seja fechado
-          int result = fileChooser.showOpenDialog(null);
-
-          // Se o usuário selecionar um arquivo
-          if (result == JFileChooser.APPROVE_OPTION) {
-              try {
-                  inputStream = new FileInputStream(fileChooser.getSelectedFile());
-                  System.out.println("File upload: " + fileChooser.getSelectedFile().getPath());
-              } catch (FileNotFoundException e) {
-                  System.out.println("File not found: " + fileChooser.getSelectedFile().getPath());
-                  return;
-              }
-          } else {
-              System.out.println("No file selected. Exiting.");
-              return;
-          }
-
-          // Ler o arquivo linha por linha
-          try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-              String line = reader.readLine();
-               System.out.println("LineF: " + line);
-              while (line!= null && line!="") {
-                  System.out.println("Processing line: " + line);
-                  // Processar a linha conforme necessário
-                  processLine(line);
-                  line = reader.readLine();
-                  System.out.println("LineD: " + line);
-              }
-          } catch (IOException e) {
-              System.out.println("Error reading the file: " + e.getMessage());
+public class MyNewGrammar
+{
+  public static void main(String args []) throws ParseException
+  {
+    MyNewGrammar parser = new MyNewGrammar(System.in);
+    while (true)
+    {
+      System.out.println("Reading from standard input...");
+      System.out.print("Enter any expression from javascript :");
+      try
+      {
+          if (MyNewGrammar.one_line() == 0){
+            System.out.println("OK.");
+            break;
+          }else if(MyNewGrammar.one_line() == 1){
+            System.out.println("Goodbye.");
+            break;
           }
       }
-
-      // Método para processar cada linha
-      private static void processLine(String line) {
-          try {
-              // Processar a linha com o seu código atual
-              switch (MyNewGrammar.one_line()) {
-                  case 0:
-                      System.out.println("OK.");
-                      break;
-                  case 1:
-                      System.out.println("Goodbye.");
-                      break;
-                  default:
-                      System.out.println("Default...");
-                      break;
-              }
-          } catch (Exception e) {
-              System.out.println("NOK.");
-              System.out.println(e.getMessage());
-          } catch (Error e) {
-              System.out.println("Oops.");
-              System.out.println(e.getMessage());
-          }
+      catch (Exception e)
+      {
+        System.out.println("NOK.");
+        System.out.println(e.getMessage());
+        MyNewGrammar.ReInit(System.in);
       }
+      catch (Error e)
+      {
+        System.out.println("Oops.");
+        System.out.println(e.getMessage());
+        break;
+      }
+    }
+  }
 }
 
 PARSER_END(MyNewGrammar)
@@ -172,11 +141,11 @@ TOKEN : {
 }
 // Regras gramaticais
 void program() : {} {
-    (consoleLog() | variableDeclaration() /*| functionDeclaration()*/ | assignment())* <EOF>
+    (consoleLog()  /*| variableDeclaration() | functionDeclaration() | assignment()*/)* (<PONTO_VIRGULA>)?
 }
 
 void consoleLog() : {} {
-    <CONSOLE> <PONTO> <LOG> <ABRE_PARENTESES> argumentList() <FECHA_PARENTESES> (<PONTO_VIRGULA>)?
+    <CONSOLE> <PONTO> <LOG> <ABRE_PARENTESES> argumentList()  <FECHA_PARENTESES>
 }
 
 void argumentList() : {} {
@@ -208,7 +177,7 @@ void value() : {} {
 }
 
 int one_line() : {} {
-    sum() <PONTO_VIRGULA> { return 0; } | <PONTO_VIRGULA> { return 1; }
+    program()  { return 0; } | <PONTO_VIRGULA> { return 1; }
 }
 
 void sum() : {} {
