@@ -56,77 +56,88 @@ SKIP : {
 
 // Operadores
 TOKEN : {
-    <ATRIBUICAO: "=" >
-  | <MAIOR: ">" >
-  | <MENOR: "<" >
-  | <NEGACAO: "!" >
-  | <DOIS_PONTOS: ":" >
-  | <IGUAL: "==" >
-  | <ESTRITAMENTE_IGUAL: "===" >
-  | <MENOR_IGUAL: "<=" >
-  | <MAIOR_IGUAL: ">=" >
-  | <DIFERENTE: "!=" >
-  | <ESTRITAMENTE_DIFERENTE: "!==" >
-  | <OR: "||" >
-  | <AND: "&&" >
-  | <INCREMENTO: "++" >
-  | <DECREMENTO: "--" >
-  | <MAIS: "+" >
-  | <MENOS: "-" >
-  | <ASTERISCO: "*" >
-  | <BARRA: "/" >
-  | <PORCENTO: "%" >
-  | <MAIS_IGUAL: "+=" >
-  | <MENOS_IGUAL: "-=" >
-  | <ASTERISCO_IGUAL: "*=" >
-  | <BARRA_IGUAL: "/=" >
-  | <PORCENTO_IGUAL: "%=" >
+    <ATRIBUICAO: "=" > { System.out.println("Operador de Atribuicao: " + image); }
+  | <MAIOR: ">" > { System.out.println("Operador de maior: " + image); }
+  | <MENOR: "<" > { System.out.println("Operador de menor: " + image); }
+  | <NEGACAO: "!" > { System.out.println("Operador de exclamação: " + image); }
+  | <DOIS_PONTOS: ":" > { System.out.println("Operador de dois pontos: " + image); }
+  | <IGUAL: "==" > { System.out.println("Operador de igual igual: " + image); }
+  | <ESTRITAMENTE_IGUAL: "===" > { System.out.println("Operador de estritamente igual: " + image); }
+  | <MENOR_IGUAL: "<=" > { System.out.println("Operador de menor igual: " + image); }
+  | <MAIOR_IGUAL: ">=" > { System.out.println("Operador de maior igual: " + image); }
+  | <DIFERENTE: "!=" > { System.out.println("Operador de diferente: " + image); }
+  | <ESTRITAMENTE_DIFERENTE: "!==" > { System.out.println("Operador de estritamente diferente: " + image); }
+  | <OR: "||" > { System.out.println("Operador de OR: " + image); }
+  | <AND: "&&" > { System.out.println("Operador de AND: " + image); }
+  | <INCREMENTO: "++" > { System.out.println("Operador de incremento: " + image); }
+  | <DECREMENTO: "--" > { System.out.println("Operador de decremento: " + image); }
+  | <MAIS: "+" > { System.out.println("Operador de mais: " + image); }
+  | <MENOS: "-" > { System.out.println("Operador de menos: " + image); }
+  | <ASTERISCO: "*" > { System.out.println("Operador de asterisco: " + image); }
+  | <BARRA: "/" > { System.out.println("Operador de barra: " + image); }
+  | <PORCENTO: "%" > { System.out.println("Operador de porcento: " + image); }
+  | <MAIS_IGUAL: "+=" > { System.out.println("Operador de mais igual: " + image); }
+  | <MENOS_IGUAL: "-=" > { System.out.println("Operador de menos igual: " + image); }
+  | <ASTERISCO_IGUAL: "*=" > { System.out.println("Operador de asterisco igual: " + image); }
+  | <BARRA_IGUAL: "/=" > { System.out.println("Operador de barra igual: " + image); }
+  | <PORCENTO_IGUAL: "%=" > { System.out.println("Operador de porcento igual: " + image); }
 }
-
 // Delimitadores
 TOKEN : {
-    <ABRE_PARENTESES: "(">
-  | <FECHA_PARENTESES: ")">
-  | <ABRE_CHAVE: "{">
-  | <FECHA_CHAVE: "}">
-  | <ABRE_COLCHETE: "[">
-  | <FECHA_COLCHETE: "]">
-  | <PONTO_VIRGULA: ";">
-  | <VIRGULA: ",">
-  | <PONTO: ".">
+    <ABRE_PARENTESES: "("> { System.out.println("Abre Parênteses: " + image); }
+  | <FECHA_PARENTESES: ")"> { System.out.println("Fecha Parênteses: " + image); }
+  | <ABRE_CHAVE: "{"> { System.out.println("Abre Chave: " + image); }
+  | <FECHA_CHAVE: "}"> { System.out.println("Fecha Chave: " + image); }
+  | <ABRE_COLCHETE: "["> { System.out.println("Abre Colchete: " + image); }
+  | <FECHA_COLCHETE: "]"> { System.out.println("Fecha Colchete: " + image); }
+  | <PONTO_VIRGULA: ";"> { System.out.println("Ponto e Vírgula: " + image); }
+  | <VIRGULA: ","> { System.out.println("Vírgula: " + image); }
+  | <PONTO: "."> { System.out.println("Ponto: " + image); }
 }
 
 // Palavras reservadas
 TOKEN : {
-    <CLASS: "class">
-  | <NaN: "NaN">
-  | <VOID: "void">
-  | <RETURN: "return">
-  | <STATIC: "static">
-  | <IF: "if">
-  | <ELSE: "else">
-  | <TRUE: "true">
-  | <FALSE: "false">
-  | <CONSOLE: "console">
-  | <LOG: "log">
-  | <PROMPT: "prompt">
-  | <WHILE: "while">
-  | <BREAK: "break">
-  | <CONTINUE: "continue">
-  | <FUNCTION: "function">
+    <CLASS: "class"> { System.out.println("Palavra Reservada: " + image); }
+  | <NaN: "NaN"> { System.out.println("Palavra Reservada: " + image); }
+  | <VOID: "void"> { System.out.println("Palavra Reservada: " + image); }
+  | <RETURN: "return"> { System.out.println("Palavra Reservada: " + image); }
+  | <STATIC: "static"> { System.out.println("Palavra Reservada: " + image); }
+  | <IF: "if"> { System.out.println("Palavra Reservada: " + image); }
+  | <ELSE: "else"> { System.out.println("Palavra Reservada: " + image); }
+  | <TRUE: "true"> { System.out.println("Palavra Reservada: " + image); }
+  | <FALSE: "false"> { System.out.println("Palavra Reservada: " + image); }
+  | <CONSOLE: "console"> { System.out.println("Palavra Reservada: " + image); }
+  | <LOG: "log"> { System.out.println("Palavra Reservada: " + image); }
+  | <PROMPT: "prompt"> { System.out.println("Palavra Reservada: " + image); }
+  | <WHILE: "while"> { System.out.println("Palavra Reservada: " + image); }
+  | <BREAK: "break"> { System.out.println("Palavra Reservada: " + image); }
+  | <CONTINUE: "continue"> { System.out.println("Palavra Reservada: " + image); }
+  | <FUNCTION: "function"> { System.out.println("Palavra Reservada: " + image); }
 }
 
 // Tipos primitivos e literais
 TOKEN : {
     <STRING_LITERAL: "\"" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* "\"" |
-                     "'" (~["'","\\"] | "\\" ["'","\\","b","f","n","r","t"])* "'">
-  | <IDENTIFIER: (["a"-"z", "A"-"Z", "_", "$", "ª", "º"]) (["a"-"z", "A"-"Z", "0"-"9", "_",  "$", "ª", "º"])*>
-  | <NUMBER: (["0"-"9"])+ ("." (["0"-"9"])+)? >
-  | <BIGINT: (["0"-"9"])+ "n">
-  | <UNDEFINED: "undefined">
-  | <NULL: "null">
-  | <BOOLEAN: ("true" | "false")>
-  | <SYMBOL: "Symbol" "(" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* ")">
+                     "'" (~["'","\\"] | "\\" ["'","\\","b","f","n","r","t"])* "'"> { System.out.println("String Literal: " + image); }
+  | <NUMBER: (["0"-"9"])+ ("." (["0"-"9"])+)? > { System.out.println("Número: " + image); }
+  | <BIGINT: (["0"-"9"])+ "n"> { System.out.println("BigInt: " + image); }
+  | <UNDEFINED: "undefined"> { System.out.println("Tipo Undefined: " + image); }
+  | <NULL: "null"> { System.out.println("Palavra Reservada: " + image); }
+  | <BOOLEAN: ("true" | "false")> { System.out.println("Tipo Booleano: " + image); }
+  | <SYMBOL: "Symbol" "(" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* ")"> { System.out.println("Tipo Symbol: " + image); }
+}
+
+TOKEN:
+{
+		<IDENTIFIER:
+		(<LETRA> | <ESPECIAL> ) (<LETRA> | <DIGITO> | <ESPECIAL> )* >
+		{
+		  System.out.println("Identificador: " +image);
+		}
+
+	|	<#LETRA: (["a"-"z", "A"-"Z"])>
+	| 	<#DIGITO: ["0"-"9"]>
+	|   <#ESPECIAL:(["_", "$", "ª", "º"])>
 }
 
 // Declaração de variáveis
@@ -141,11 +152,11 @@ TOKEN : {
 }
 // Regras gramaticais
 void program() : {} {
-    (consoleLog()  /*| variableDeclaration() | functionDeclaration() | assignment()*/)* (<PONTO_VIRGULA>)?
+    consoleLog()  | variableDeclaration()
 }
 
 void consoleLog() : {} {
-    <CONSOLE> <PONTO> <LOG> <ABRE_PARENTESES> argumentList()  <FECHA_PARENTESES>
+    <CONSOLE> <PONTO> <LOG> <ABRE_PARENTESES>  <FECHA_PARENTESES>
 }
 
 void argumentList() : {} {
@@ -153,7 +164,7 @@ void argumentList() : {} {
 }
 
 void variableDeclaration() : {} {
-    ( <LET> | <VAR> ) <IDENTIFIER> <ATRIBUICAO> value() (<PONTO_VIRGULA>)?
+    /*( <LET> | <VAR> )*/ <IDENTIFIER> <ATRIBUICAO> value() (<PONTO_VIRGULA>)? //LET e VAR estão dando conflito com o IDENTIFIER, o compilador não sabe o que atribuir, temos que ver como escrever isto, o problema provavelmente se repete pra outros tokens
 }
 
 /*void functionDeclaration() : {} {
@@ -177,7 +188,7 @@ void value() : {} {
 }
 
 int one_line() : {} {
-    program()  { return 0; } | <PONTO_VIRGULA> { return 1; }
+    program()  { return 0; } | "fechar" { return 1; }
 }
 
 void sum() : {} {
