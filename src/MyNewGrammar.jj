@@ -127,6 +127,12 @@ TOKEN : {
   | <SYMBOL: "Symbol" "(" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* ")"> { System.out.println("Tipo Symbol: " + image); }
 }
 
+// Declaração de variáveis
+TOKEN : {
+    <LET: "let"> { System.out.println("Declaração let: " + image); }
+  | <VAR: "var"> { System.out.println("Declaração var: " + image); }
+}
+
 TOKEN:
 {
 		<IDENTIFIER:
@@ -140,11 +146,6 @@ TOKEN:
 	|   <#ESPECIAL:(["_", "$", "ª", "º"])>
 }
 
-// Declaração de variáveis
-TOKEN : {
-    <LET: "let">
-  | <VAR: "var">
-}
 
 TOKEN : {
     <CONSTANT : (<DIGIT>)+>
@@ -156,7 +157,7 @@ void program() : {} {
 }
 
 void consoleLog() : {} {
-    <CONSOLE> <PONTO> <LOG> <ABRE_PARENTESES>  <FECHA_PARENTESES>
+    <CONSOLE> <PONTO> <LOG> <ABRE_PARENTESES> argumentList() <FECHA_PARENTESES>
 }
 
 void argumentList() : {} {
@@ -164,7 +165,7 @@ void argumentList() : {} {
 }
 
 void variableDeclaration() : {} {
-    /*( <LET> | <VAR> )*/ <IDENTIFIER> <ATRIBUICAO> value() (<PONTO_VIRGULA>)? //LET e VAR estão dando conflito com o IDENTIFIER, o compilador não sabe o que atribuir, temos que ver como escrever isto, o problema provavelmente se repete pra outros tokens
+    ( <LET> | <VAR> )?  assignment()  //(<PONTO_VIRGULA>)?
 }
 
 /*void functionDeclaration() : {} {
@@ -176,7 +177,7 @@ void parameterList() : {} {
 }
 
 void assignment() : {} {
-    <IDENTIFIER> <ATRIBUICAO> value() (<PONTO_VIRGULA>)?
+    <IDENTIFIER> <ATRIBUICAO> value() (<VIRGULA> assignment())* //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
 }
 
 void functionCall() : {} {
@@ -184,7 +185,7 @@ void functionCall() : {} {
 }
 
 void value() : {} {
-    <NUMBER> | <BOOLEAN> | <NULL> | <UNDEFINED> | <STRING_LITERAL> | <IDENTIFIER> | <ABRE_PARENTESES> value() <FECHA_PARENTESES>
+    <NUMBER> | <BOOLEAN> | <NULL> | <UNDEFINED> | <STRING_LITERAL> | <IDENTIFIER> | <ABRE_PARENTESES> value() <FECHA_PARENTESES> //| functionDeclaration()
 }
 
 int one_line() : {} {
