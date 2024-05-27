@@ -3,49 +3,110 @@ PARSER_BEGIN(MyNewGrammar)
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-
-import javax.swing.JFileChooser;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JFileChooser;
+
 
 
 public class MyNewGrammar
 {
   public static void main(String args []) throws ParseException
   {
-    MyNewGrammar parser = new MyNewGrammar(System.in);
-    while (true)
-    {
-      System.out.println("Reading from standard input...");
-      System.out.print("Enter any expression from javascript :");
-      try
-      {
-          if (MyNewGrammar.one_line() == 0){
-            System.out.println("OK.");
-            break;
-          }else if(MyNewGrammar.one_line() == 1){
-            System.out.println("Goodbye.");
-            break;
+
+       // Arquivo selecionado
+        InputStream inputStream = null;
+
+         // Criar um seletor de arquivos
+         JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
+         fileChooser.setDialogTitle("Selecione o arquivo que vai ser compilado na linguagem javascript");
+
+         // Definir filtro para arquivos .txt
+         FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt");
+         fileChooser.setFileFilter(filter);
+
+         // Mostrar o diálogo de abertura; este método não retorna até que o diálogo seja fechado
+         int result = fileChooser.showOpenDialog(null);
+
+         // Se o usuário selecionar um arquivo
+         if (result == JFileChooser.APPROVE_OPTION) {
+              final String path = fileChooser.getSelectedFile().getPath();
+
+              try {
+                  inputStream = new FileInputStream(fileChooser.getSelectedFile());
+
+                 if (inputStream == null) {
+                     throw new IOException("Arquivo não encontrado: " + path);
+                  }
+              } catch (FileNotFoundException e) {
+                   System.out.println("Arquivo não encontrado: " + path);
+                   return;
+              } catch (IOException e){
+                   System.out.println("Erro: " + e.getMessage());
+                   return;
+              }
+          } else {
+              System.out.println("No file selected. Exiting.");
+              return;
           }
-      }
-      catch (Exception e)
-      {
-        System.out.println("NOK.");
-        System.out.println(e.getMessage());
-        MyNewGrammar.ReInit(System.in);
-      }
-      catch (Error e)
-      {
-        System.out.println("Oops.");
-        System.out.println(e.getMessage());
-        break;
-      }
-    }
+
+          // Ler o arquivo linha por linha
+          try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+              String line = reader.readLine();
+
+              while (line!= null && !line.isEmpty()) {
+                  System.out.println("Processing line:" + line);
+
+                  // Processar a linha conforme necessário
+                  processLine(line);
+                  line = reader.readLine();
+
+              }
+          } catch (IOException e) {
+              System.out.println("Error reading the file: " + e.getMessage());
+          }
+
+
   }
-}
+   // Método para processar cada linha
+      private static void processLine(String line) {
+      System.out.println("teste:",line,"!");
+        // Processar a linha com o seu código atual
+        while (true)
+            {
+            System.out.println("Reading from standard input...");
+            System.out.print("Enter any expression from javascript :");
+                try
+                    {
+                    if (MyNewGrammar.one_line() == 0){
+                        System.out.println("OK.");
+                        break;
+                    }else if(MyNewGrammar.one_line() == 1){
+                        System.out.println("Goodbye.");
+                        break;
+                        }
+                    }
+                catch (Exception e)
+                {
+                    System.out.println("NOK.");
+                    System.out.println(e.getMessage());
+                   // MyNewGrammar.ReInit(System.in);
+                }
+                catch (Error e)
+                {
+                    System.out.println("Oops.");
+                    System.out.println(e.getMessage());
+                        break;
+                }
+            }
+  }
+
+
 
 PARSER_END(MyNewGrammar)
 
@@ -153,7 +214,7 @@ TOKEN : {
 }
 // Regras gramaticais
 void program() : {} {
-    consoleLog()  | variableDeclaration() | conditional()
+    consoleLog() | variableDeclaration() | conditional()
 }
 
 void consoleLog() : {} {
@@ -165,25 +226,20 @@ void argumentList() : {} {
 }
 
 void variableDeclaration() : {} {
-    ( <LET> | <VAR> )? <IDENTIFIER> <ATRIBUICAO> assignment()  //(<PONTO_VIRGULA>)?
+    ( <LET> | <VAR> )?  assignment()  //(<PONTO_VIRGULA>)?
 }
 
-/*void functionDeclaration() : {} {
+void functionDeclaration() : {} {
     <FUNCTION> <IDENTIFIER> <ABRE_PARENTESES> parameterList() <FECHA_PARENTESES> <ABRE_CHAVE> (assignment() | functionCall())* <FECHA_CHAVE>
-}*/
+}
 
 void parameterList() : {} {
     ( <IDENTIFIER> ( <VIRGULA> <IDENTIFIER> )* )?
 }
 
-//void assignment() : {} {
-//    <IDENTIFIER> <ATRIBUICAO> value() (<VIRGULA> assignment())* //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
-//}
-
 void assignment() : {} {
-      value() | <VIRGULA> assignment() //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
+    <IDENTIFIER> <ATRIBUICAO> value() (<VIRGULA> assignment())* //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
 }
-
 
 void functionCall() : {} {
     <IDENTIFIER> <ABRE_PARENTESES> argumentList() <FECHA_PARENTESES> (<PONTO_VIRGULA>)?
@@ -194,7 +250,7 @@ void value() : {} {
 }
 
 int one_line() : {} {
-    program()  { return 0; } | <PONTO_VIRGULA> { return 1; }
+    program()  { return 0; } | "fechar" { return 1; }
 }
 
 void sum() : {} {
@@ -212,22 +268,11 @@ void unary() : {} {
 void element() : {} {
     <CONSTANT> | <ABRE_PARENTESES> sum() <FECHA_PARENTESES>
 }
-
-
-void relationalOperator():{}{
-<MAIOR> | <MAIOR_IGUAL> | <MENOR> |<MENOS_IGUAL>| <IGUAL> | <DIFERENTE> |<ESTRITAMENTE_DIFERENTE>
+void comparison():{}{
+    value()( <IGUAL> | <DIFERENTE>) value()
 }
 
-void logisticOperator():{}{
-  <AND> | <OR>
-}
-
-void comparisonSimple():{}{
-    value() relationalOperator() value()
-}
 
 void conditional():{}{
-
-    <IF> <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
-    <ABRE_CHAVE> program() <FECHA_CHAVE>
+    <IF> comparison()
 }
