@@ -165,7 +165,7 @@ void argumentList() : {} {
 }
 
 void variableDeclaration() : {} {
-    ( <LET> | <VAR> )?  assignment()  //(<PONTO_VIRGULA>)?
+    ( <LET> | <VAR> )? <IDENTIFIER> <ATRIBUICAO> assignment()  //(<PONTO_VIRGULA>)?
 }
 
 /*void functionDeclaration() : {} {
