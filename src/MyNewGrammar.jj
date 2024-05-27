@@ -153,7 +153,7 @@ TOKEN : {
 }
 // Regras gramaticais
 void program() : {} {
-    consoleLog()  | variableDeclaration()
+    consoleLog()  | variableDeclaration() | conditional()
 }
 
 void consoleLog() : {} {
@@ -176,9 +176,14 @@ void parameterList() : {} {
     ( <IDENTIFIER> ( <VIRGULA> <IDENTIFIER> )* )?
 }
 
+//void assignment() : {} {
+//    <IDENTIFIER> <ATRIBUICAO> value() (<VIRGULA> assignment())* //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
+//}
+
 void assignment() : {} {
-    <IDENTIFIER> <ATRIBUICAO> value() (<VIRGULA> assignment())* //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
+      value() | <VIRGULA> assignment() //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
 }
+
 
 void functionCall() : {} {
     <IDENTIFIER> <ABRE_PARENTESES> argumentList() <FECHA_PARENTESES> (<PONTO_VIRGULA>)?
@@ -189,7 +194,7 @@ void value() : {} {
 }
 
 int one_line() : {} {
-    program()  { return 0; } | "fechar" { return 1; }
+    program()  { return 0; } | <PONTO_VIRGULA> { return 1; }
 }
 
 void sum() : {} {
@@ -209,3 +214,18 @@ void element() : {} {
 }
 
 
+void relationalOperator():{}{
+<MAIOR> | <MAIOR_IGUAL> | <MENOR> |<MENOS_IGUAL>| <IGUAL> | <DIFERENTE> |<ESTRITAMENTE_DIFERENTE>
+}
+
+void logisticOperator():{}{
+  <AND> | <OR>
+}
+
+void comparisonSimple():{}{
+    value() relationalOperator() value()
+}
+
+void conditional():{}{
+    <IF> <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES><ABRE_CHAVE> <FECHA_CHAVE>
+}
