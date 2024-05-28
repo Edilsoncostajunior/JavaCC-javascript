@@ -154,7 +154,7 @@ TOKEN : {
 }
 // Regras gramaticais
 void program() : {} {
-    consoleLog()  | variableDeclaration() | conditional()
+    consoleLog()  | variableDeclaration() | conditional() | whileRepeat()
 }
 
 void consoleLog() : {} {
@@ -184,7 +184,6 @@ void parameterList() : {} {
 void assignment() : {} {
       value() | <VIRGULA> assignment() //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
 }
-
 
 void functionCall() : {} {
     <IDENTIFIER> <ABRE_PARENTESES> argumentList() <FECHA_PARENTESES> (<PONTO_VIRGULA>)?
@@ -233,3 +232,9 @@ void conditional():{}{
                     <ABRE_CHAVE> (program())* <FECHA_CHAVE>)*
     (<ELSE> <ABRE_CHAVE> (program())* <FECHA_CHAVE>)*
 }
+
+void whileRepeat():{}{
+    <WHILE>  <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
+    <ABRE_CHAVE> (program())+ <FECHA_CHAVE>
+}
+
