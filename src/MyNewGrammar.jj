@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 
 public class MyNewGrammar
 {
-  public static void main(String args []) throws ParseException
+  public static void main(String []args ) throws ParseException
   {
     MyNewGrammar parser = new MyNewGrammar(System.in);
     while (true)
@@ -98,7 +98,7 @@ TOKEN : {
 // Palavras reservadas
 TOKEN : {
     <CLASS: "class"> { System.out.println("Palavra Reservada: " + image); }
-  | <NaN: "NaN"> { System.out.println("Palavra Reservada: " + image); }
+  | <NAN: "NaN"> { System.out.println("Palavra Reservada: " + image); }
   | <VOID: "void"> { System.out.println("Palavra Reservada: " + image); }
   | <RETURN: "return"> { System.out.println("Palavra Reservada: " + image); }
   | <STATIC: "static"> { System.out.println("Palavra Reservada: " + image); }
@@ -113,6 +113,7 @@ TOKEN : {
   | <BREAK: "break"> { System.out.println("Palavra Reservada: " + image); }
   | <CONTINUE: "continue"> { System.out.println("Palavra Reservada: " + image); }
   | <FUNCTION: "function"> { System.out.println("Palavra Reservada: " + image); }
+  | <CONST: "const"> { System.out.println("Palavra Reservada: " + image); }
 }
 
 // Tipos primitivos e literais
@@ -213,7 +214,6 @@ void element() : {} {
     <CONSTANT> | <ABRE_PARENTESES> sum() <FECHA_PARENTESES>
 }
 
-
 void relationalOperator():{}{
 <MAIOR> | <MAIOR_IGUAL> | <MENOR> |<MENOS_IGUAL>| <IGUAL> | <DIFERENTE> |<ESTRITAMENTE_DIFERENTE>
 }
@@ -227,7 +227,9 @@ void comparisonSimple():{}{
 }
 
 void conditional():{}{
-
     <IF> <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
-    <ABRE_CHAVE> program() <FECHA_CHAVE>
+    <ABRE_CHAVE> (program())* <FECHA_CHAVE>
+    (<ELSE> <IF> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
+                    <ABRE_CHAVE> (program())* <FECHA_CHAVE>)*
+    (<ELSE> <ABRE_CHAVE> (program())* <FECHA_CHAVE>)*
 }

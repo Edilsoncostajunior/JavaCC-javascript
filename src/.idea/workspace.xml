@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4ae8fcc-6b9b-4a2a-9095-b04c1158eace" name="Changes" comment="Capacidade de ler arquivo          &#10;  Tasks: Tracking Refactoring            &#10;       Errors: None.&#10;  Information:&#10;        - Adicionado capacidade de ler arquivo&#10;        - Comentado a função functionDeclaration()(ela quebra o codigo)">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/JavaCC-javascript/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/JavaCC-javascript/MyNewGrammar.jj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/JavaCC-javascript/javascript-exemplo.txt" afterDir="false" />
+    <list default="true" id="c4ae8fcc-6b9b-4a2a-9095-b04c1158eace" name="Changes" comment="Ajuste          &#10;  Tasks: Tracking Refactoring            &#10;       Errors: None.&#10;  Information:&#10;        - Adicionado capacidade de ler arquivo&#10;        - Comentado a função functionDeclaration()(ela quebra o codigo)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyNewGrammar.jj" beforeDir="false" afterPath="$PROJECT_DIR$/MyNewGrammar.jj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/javascript-exemplo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/javascript-exemplo.txt" afterDir="false" />
     </list>
@@ -38,6 +35,21 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="JavaCC-javascript" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="JavaCC-javascript" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
