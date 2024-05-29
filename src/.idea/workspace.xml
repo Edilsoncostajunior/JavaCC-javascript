@@ -7,7 +7,6 @@
     <list default="true" id="c4ae8fcc-6b9b-4a2a-9095-b04c1158eace" name="Changes" comment="Ajuste          &#10;  Tasks: Tracking Refactoring            &#10;       Errors: None.&#10;  Information:&#10;        - Adicionado capacidade de ler arquivo&#10;        - Comentado a função functionDeclaration()(ela quebra o codigo)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyNewGrammar.jj" beforeDir="false" afterPath="$PROJECT_DIR$/MyNewGrammar.jj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javascript-exemplo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/javascript-exemplo.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
