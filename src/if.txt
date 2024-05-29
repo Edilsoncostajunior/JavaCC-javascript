@@ -1,6 +1,7 @@
-if(){
-}
 if(x==1){
+ console.log()
+}
+/*if(x==1){
 }
 if(x==1&&x>2){
     console.log()
@@ -14,3 +15,4 @@ else if(x==2){
 else {
     console.log("acabou")
 }
+*/

@@ -313,7 +313,7 @@ void conditional():{}{
 }
 
 void whileRepeat():{}{
-    <WHILE>  <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
+    <WHILE>  <ABRE_PARENTESES>    comparisonSimple() (logisticOperator() comparisonSimple() )*  <FECHA_PARENTESES>
     <ABRE_CHAVE> (program())+ <FECHA_CHAVE>
 }
 
