@@ -263,8 +263,6 @@ void parameterList() : {} {
 //    <IDENTIFIER> <ATRIBUICAO> value() (<VIRGULA> assignment())* //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
 //}
 
-
-
 void functionCall() : {} {
     <IDENTIFIER> <ABRE_PARENTESES> argumentList() <FECHA_PARENTESES> (<PONTO_VIRGULA>)?
 }
