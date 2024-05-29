@@ -181,7 +181,6 @@ TOKEN : {
   | <BREAK: "break"> { System.out.println("Palavra Reservada: " + image); }
   | <CONTINUE: "continue"> { System.out.println("Palavra Reservada: " + image); }
   | <FUNCTION: "function"> { System.out.println("Palavra Reservada: " + image); }
-  | <CONST: "const"> { System.out.println("Palavra Reservada: " + image); }
 }
 
 // Tipos primitivos e literais
@@ -200,6 +199,8 @@ TOKEN : {
 TOKEN : {
     <LET: "let"> { System.out.println("Declaração let: " + image); }
   | <VAR: "var"> { System.out.println("Declaração var: " + image); }
+  | <CONST: "const"> { System.out.println("Declaração const: " + image); }
+
 }
 
 TOKEN:
@@ -234,8 +235,21 @@ void argumentList() : {} {
 }
 
 void variableDeclaration() : {} {
-    ( <LET> | <VAR> )? <IDENTIFIER> <ATRIBUICAO> assignment()  //(<PONTO_VIRGULA>)?
+    ( <LET> | <VAR> | <CONST> )?  assignment()
 }
+
+void assignment() : {} {
+     singleassignment() moreassignment() //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
+}
+
+void singleassignment() : {} {
+     <IDENTIFIER> <ATRIBUICAO> value() //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
+}
+
+void moreassignment() : {} {
+          [<VIRGULA> singleassignment() moreassignment()]
+}
+
 
 /*void functionDeclaration() : {} {
     <FUNCTION> <IDENTIFIER> <ABRE_PARENTESES> parameterList() <FECHA_PARENTESES> <ABRE_CHAVE> (assignment() | functionCall())* <FECHA_CHAVE>
@@ -249,9 +263,7 @@ void parameterList() : {} {
 //    <IDENTIFIER> <ATRIBUICAO> value() (<VIRGULA> assignment())* //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
 //}
 
-void assignment() : {} {
-      value() | <VIRGULA> assignment() //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
-}
+
 
 void functionCall() : {} {
     <IDENTIFIER> <ABRE_PARENTESES> argumentList() <FECHA_PARENTESES> (<PONTO_VIRGULA>)?
