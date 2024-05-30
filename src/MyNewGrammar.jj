@@ -189,8 +189,8 @@ TOKEN : {
   | <BIGINT: (["0"-"9"])+ "n"> { System.out.println("BigInt: " + image); }
   | <UNDEFINED: "undefined"> { System.out.println("Tipo Undefined: " + image); }
   | <NULL: "null"> { System.out.println("Palavra Reservada: " + image); }
-  | <TRUE: ("true")> { System.out.println("Tipo Booleano true: " + image); }
-  | <FALSE: ("false")> { System.out.println("Tipo Booleano false: " + image); }
+  | <TRUE: "true"> { System.out.println("Tipo Booleano true: " + image); }
+  | <FALSE:"false"> { System.out.println("Tipo Booleano false: " + image); }
   | <SYMBOL: "Symbol" "(" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* ")"> { System.out.println("Tipo Symbol: " + image); }
 }
 
@@ -316,7 +316,7 @@ void comparisonSimple():{}{
 
 void conditional() : {}
 {
-    ifStatement() (<ELSE> (elseIfStatement() | elseStatement()))?
+    ifStatement() (LOOKAHEAD(2) elseIfStatements())* [elseStatement()]
 }
 
 void ifStatement() : {}
@@ -325,16 +325,16 @@ void ifStatement() : {}
     <ABRE_CHAVE> (program())* <FECHA_CHAVE>
 }
 
-void elseIfStatement() : {}
-{
-    <IF> <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
-    <ABRE_CHAVE> (program())* <FECHA_CHAVE>
+void elseIfStatements():{}{
+
+    <ELSE> <IF> <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES> <ABRE_CHAVE> program() <FECHA_CHAVE>
 }
 
-void elseStatement() : {}
-{
-    ( <ABRE_CHAVE> (program())* <FECHA_CHAVE>)?
+void elseStatement():{}{
+
+    <ELSE> <ABRE_CHAVE> program() <FECHA_CHAVE>
 }
+
 
 
 // OPÇÃO RETIRADA DO CÓDIGO DE LUCENA, APARENTEMENTE GERA O MESMO RESULTADO DA ANTERIOR
@@ -371,7 +371,7 @@ void elseStatement() : {}
 
 
 void whileRepeat():{}{
-    <WHILE>  <ABRE_PARENTESES>  comparisonSimple() (logisticOperator() comparisonSimple())*  <FECHA_PARENTESES>
+    <WHILE>  <ABRE_PARENTESES>    comparisonSimple() (logisticOperator() comparisonSimple() )*  <FECHA_PARENTESES>
     <ABRE_CHAVE> (program())+ <FECHA_CHAVE>
 }
 
