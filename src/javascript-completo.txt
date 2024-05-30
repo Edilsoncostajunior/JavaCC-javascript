@@ -1,6 +1,1 @@
-let x=0
-while(true){
-    if(x==1&&x>2){
-        console.log()
-    }
-}
+myFunction(1, a=2, true, "hello", anotherFunction(10, "world"));

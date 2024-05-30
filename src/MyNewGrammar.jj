@@ -222,7 +222,7 @@ TOKEN : {
 }
 // Regras gramaticais
 void program() : {} {
-    consoleLog()  | variableDeclaration() | conditional() | whileRepeat()
+    consoleLog()  | (LOOKAHEAD(2) variableDeclaration() | functionCall()) | conditional() | whileRepeat() | functionDeclaration()
 }
 
 void consoleLog() : {} {
@@ -249,6 +249,10 @@ void moreassignment() : {} {
      [<VIRGULA> singleassignment() moreassignment()]
 }
 
+void functionDeclaration() : {} {
+    <FUNCTION> <IDENTIFIER> <ABRE_PARENTESES> functionParameterList() <FECHA_PARENTESES> <ABRE_CHAVE> (program())* <FECHA_CHAVE>
+}
+
 
 /*void functionDeclaration() : {} {
     <FUNCTION> <IDENTIFIER> <ABRE_PARENTESES> parameterList() <FECHA_PARENTESES> <ABRE_CHAVE> (assignment() | functionCall())* <FECHA_CHAVE>
@@ -258,18 +262,36 @@ void parameterList() : {} {
     ( <IDENTIFIER> ( <VIRGULA> <IDENTIFIER> )* )?
 }
 
+void functionParameterList() : {} {
+     parameter() ( <VIRGULA> parameter() )*
+}
+
+void parameter() : {} {
+    LOOKAHEAD(2) value() | functionCall()
+}
+
+void functionCall() : {} {
+    <IDENTIFIER> <ABRE_PARENTESES> [ functionParameterList() ] <FECHA_PARENTESES> (<PONTO_VIRGULA>)?
+}
+
+/*void functionParameterList() : {} {
+     LOOKAHEAD(2) value() ( <VIRGULA> value() | <ATRIBUICAO> value() )* | functionCall()
+}
+
+// a,b,c ou a= 2, b="frase", c=null
+
+void functionCall() : {} {
+    <IDENTIFIER> <ABRE_PARENTESES> (functionParameterList())*  <FECHA_PARENTESES> (<PONTO_VIRGULA>)?
+} */
+
+
+void value() : {} {
+    <NUMBER> | <TRUE> | <FALSE> | <NULL> | <UNDEFINED> | <STRING_LITERAL> | <IDENTIFIER> //| <ABRE_PARENTESES> value() <FECHA_PARENTESES>
+}
+
 //void assignment() : {} {
 //    <IDENTIFIER> <ATRIBUICAO> value() (<VIRGULA> assignment())* //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
 //}
-
-void functionCall() : {} {
-    <IDENTIFIER> <ABRE_PARENTESES> argumentList() <FECHA_PARENTESES> (<PONTO_VIRGULA>)?
-}
-
-void value() : {} {
-    <NUMBER> | <TRUE> | <FALSE> | <NULL> | <UNDEFINED> | <STRING_LITERAL> | <IDENTIFIER>| <ABRE_PARENTESES> value() <FECHA_PARENTESES> //| functionDeclaration()
-}
-
 int one_line() : {} {
     program()  { return 0; } | <PONTO_VIRGULA> { return 1; } | { return -1;}
 
