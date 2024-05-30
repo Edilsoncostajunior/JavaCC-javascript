@@ -292,7 +292,7 @@ void element() : {} {
 }
 
 void relationalOperator():{}{
-<MAIOR> | <MAIOR_IGUAL> | <MENOR> |<MENOS_IGUAL>| <IGUAL> | <DIFERENTE> |<ESTRITAMENTE_DIFERENTE>
+   [(<MAIOR> | <MAIOR_IGUAL> | <MENOR> |<MENOS_IGUAL>| <IGUAL> | <DIFERENTE> |<ESTRITAMENTE_DIFERENTE>)]  value()
 }
 
 void logisticOperator():{}{
@@ -300,7 +300,7 @@ void logisticOperator():{}{
 }
 
 void comparisonSimple():{}{
-    value() relationalOperator() value()
+    value() (relationalOperator())?
 }
 
 //void conditional():{}{
@@ -316,18 +316,13 @@ void comparisonSimple():{}{
 
 void conditional() : {}
 {
-    ifStatement() (<ELSE> (elseIfStatements() | elseStatement()))?
+    ifStatement() (<ELSE> (elseIfStatement() | elseStatement()))?
 }
 
 void ifStatement() : {}
 {
     <IF> <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
     <ABRE_CHAVE> (program())* <FECHA_CHAVE>
-}
-
-void elseIfStatements() : {}
-{
-    elseIfStatement()
 }
 
 void elseIfStatement() : {}
@@ -376,7 +371,7 @@ void elseStatement() : {}
 
 
 void whileRepeat():{}{
-    <WHILE>  <ABRE_PARENTESES>    comparisonSimple() (logisticOperator() comparisonSimple() )*  <FECHA_PARENTESES>
+    <WHILE>  <ABRE_PARENTESES>  comparisonSimple() (logisticOperator() comparisonSimple())*  <FECHA_PARENTESES>
     <ABRE_CHAVE> (program())+ <FECHA_CHAVE>
 }
 
