@@ -179,6 +179,8 @@ TOKEN : {
   | <BREAK: "break"> { System.out.println("Palavra Reservada: " + image); }
   | <CONTINUE: "continue"> { System.out.println("Palavra Reservada: " + image); }
   | <FUNCTION: "function"> { System.out.println("Palavra Reservada: " + image); }
+  | <AWAIT: "await"> { System.out.println("Palavra Reservada: " + image); }
+
 }
 
 // Tipos primitivos e literais
@@ -222,7 +224,7 @@ TOKEN : {
 }
 // Regras gramaticais
 void program() : {} {
-    consoleLog()  | (LOOKAHEAD(2) variableDeclaration() | functionCall()) | conditional() | whileRepeat() | functionDeclaration()
+    consoleLog()  | (LOOKAHEAD(2) functionCall() | variableDeclaration() ) | conditional() | whileRepeat() | functionDeclaration()
 }
 
 void consoleLog() : {} {
@@ -234,19 +236,42 @@ void argumentList() : {} {
 }
 
 void variableDeclaration() : {} {
-    ( <LET> | <VAR> | <CONST> )?  assignment()
+    ( <LET> | <VAR> | <CONST> )? <IDENTIFIER> assignment()
+
 }
 
 void assignment() : {} {
-    singleassignment() moreassignment() //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
+    (<ATRIBUICAO> expressao() )? (<VIRGULA> <IDENTIFIER> (<ATRIBUICAO> expressao())? )*
 }
 
-void singleassignment() : {} {
-    <IDENTIFIER> <ATRIBUICAO> value() //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
+
+void expressao():{}{
+    incrementoOuDecremento()
+    | avaliarTermoLogico() ( (<AND>|<OR>) avaliarTermoLogico() )*
 }
 
-void moreassignment() : {} {
-     [<VIRGULA> singleassignment() moreassignment()]
+void complementoComparacao():{}{
+    [ (<MENOR>| <MAIOR> |<MENOR_IGUAL> |<MAIOR_IGUAL> |<IGUAL>|<DIFERENTE>) criarItem() ]
+}
+
+void avaliarTermoLogico():{}{
+    criarItem() complementoComparacao()
+}
+
+void criarItem():{} {
+    definirTermo() (("+"|"-") definirTermo() )*
+}
+
+void definirTermo():{} {
+    itemUnico() (("*"|"/"|"%") itemUnico() )*
+}
+
+void itemUnico():{} {
+    [("+"|"-")] value()
+}
+
+void incrementoOuDecremento():{}{
+     (<INCREMENTO> | <DECREMENTO>) <IDENTIFIER>
 }
 
 void functionDeclaration() : {} {
@@ -290,9 +315,6 @@ void value() : {} {
     <NUMBER> | <TRUE> | <FALSE> | <NULL> | <UNDEFINED> | <STRING_LITERAL> | <IDENTIFIER> //| <ABRE_PARENTESES> value() <FECHA_PARENTESES>
 }
 
-//void assignment() : {} {
-//    <IDENTIFIER> <ATRIBUICAO> value() (<VIRGULA> assignment())* //| <IDENTIFIER> <ATRIBUICAO> value() <VIRGULA> assignment()
-//}
 int one_line() : {} {
     program()  { return 0; } | <PONTO_VIRGULA> { return 1; } | { return -1;}
 
@@ -326,17 +348,6 @@ void comparisonSimple():{}{
      (<NEGACAO>)* value() (relationalOperator())?
 }
 
-/*void conditional():{}{
-    <IF> <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
-    <ABRE_CHAVE> (program())* <FECHA_CHAVE>
-    (<ELSE> (<IF><ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
-                                 <ABRE_CHAVE> (program())* <FECHA_CHAVE>
-                                 | <ABRE_CHAVE> (program())* <FECHA_CHAVE>))*
-    (<ELSE> <IF><ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
-                    <ABRE_CHAVE> (program())* <FECHA_CHAVE>)*
-    (<ELSE> <ABRE_CHAVE> (program())* <FECHA_CHAVE>)*
-}*/
-
 void conditional() : {}
 {
     ifStatement() (LOOKAHEAD(2) elseIfStatements())* [elseStatement()]
@@ -357,40 +368,6 @@ void elseStatement():{}{
 
     <ELSE> <ABRE_CHAVE> (program())* <FECHA_CHAVE>
 }
-
-
-// OPÇÃO RETIRADA DO CÓDIGO DE LUCENA, APARENTEMENTE GERA O MESMO RESULTADO DA ANTERIOR
-//void conditional() : {}
-//{
-//    ifStatement()
-//    [
-//        <ELSE>
-//          (
-//            LOOKAHEAD(<IF>) opcaoElseIf() // para else if
-//            | blocoDeclaracoesWhile() // para else comum
-//                  )]
-//}
-//
-//void opcaoElseIf(): {}{
-//    ifStatement()
-//    [
-//        <ELSE> (
-//            LOOKAHEAD(<IF>) opcaoElseIf() // para outro else if
-//            | blocoDeclaracoesWhile() // para else final
-//        )
-//    ]
-//}
-//
-//void ifStatement() : {}
-//{
-//    <IF> <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
-//    <ABRE_CHAVE> (program())* <FECHA_CHAVE>
-//}
-//
-//void blocoDeclaracoesWhile():{}{
-//    <ABRE_CHAVE> (program())* <FECHA_CHAVE>
-//}
-
 
 void whileRepeat():{}{
     <WHILE>  <ABRE_PARENTESES>  comparisonSimple() (logisticOperator() comparisonSimple() )*  <FECHA_PARENTESES>
