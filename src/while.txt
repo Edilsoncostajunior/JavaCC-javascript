@@ -1,6 +1,7 @@
 while(false&&true){
     console.log()
     while(true){
-console.log()
+       console.log()
     }
 }
+console.log()

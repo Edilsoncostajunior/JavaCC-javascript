@@ -1,1 +1,1 @@
-myFunction(1, a=2, true, "hello", anotherFunction(10, "world"));
+myFunction(1, a=2, true, "hello");

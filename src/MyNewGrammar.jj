@@ -267,7 +267,8 @@ void functionParameterList() : {} {
 }
 
 void parameter() : {} {
-    LOOKAHEAD(2) value() | functionCall()
+   // LOOKAHEAD(2) value() | singleassignment() /* functionCall()*/
+   value() ( <ATRIBUICAO> value())? /*| functionCall()*/
 }
 
 void functionCall() : {} {
@@ -322,19 +323,19 @@ void logisticOperator():{}{
 }
 
 void comparisonSimple():{}{
-    value() (relationalOperator())?
+     (<NEGACAO>)* value() (relationalOperator())?
 }
 
-//void conditional():{}{
-//    <IF> <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
-//    <ABRE_CHAVE> (program())* <FECHA_CHAVE>
-//    (<ELSE> (<IF><ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
-//                                 <ABRE_CHAVE> (program())* <FECHA_CHAVE>
-//                                 | <ABRE_CHAVE> (program())* <FECHA_CHAVE>))*
-//    (<ELSE> <IF><ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
-//                    <ABRE_CHAVE> (program())* <FECHA_CHAVE>)*
-//    (<ELSE> <ABRE_CHAVE> (program())* <FECHA_CHAVE>)*
-//}
+/*void conditional():{}{
+    <IF> <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
+    <ABRE_CHAVE> (program())* <FECHA_CHAVE>
+    (<ELSE> (<IF><ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
+                                 <ABRE_CHAVE> (program())* <FECHA_CHAVE>
+                                 | <ABRE_CHAVE> (program())* <FECHA_CHAVE>))*
+    (<ELSE> <IF><ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
+                    <ABRE_CHAVE> (program())* <FECHA_CHAVE>)*
+    (<ELSE> <ABRE_CHAVE> (program())* <FECHA_CHAVE>)*
+}*/
 
 void conditional() : {}
 {
@@ -349,14 +350,13 @@ void ifStatement() : {}
 
 void elseIfStatements():{}{
 
-    <ELSE> <IF> <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES> <ABRE_CHAVE> program() <FECHA_CHAVE>
+    <ELSE> <IF> <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES> <ABRE_CHAVE> (program())*  <FECHA_CHAVE>
 }
 
 void elseStatement():{}{
 
-    <ELSE> <ABRE_CHAVE> program() <FECHA_CHAVE>
+    <ELSE> <ABRE_CHAVE> (program())* <FECHA_CHAVE>
 }
-
 
 
 // OPÇÃO RETIRADA DO CÓDIGO DE LUCENA, APARENTEMENTE GERA O MESMO RESULTADO DA ANTERIOR
@@ -393,7 +393,6 @@ void elseStatement():{}{
 
 
 void whileRepeat():{}{
-    <WHILE>  <ABRE_PARENTESES>    comparisonSimple() (logisticOperator() comparisonSimple() )*  <FECHA_PARENTESES>
-    <ABRE_CHAVE> (program())+ <FECHA_CHAVE>
+    <WHILE>  <ABRE_PARENTESES>  comparisonSimple() (logisticOperator() comparisonSimple() )*  <FECHA_PARENTESES>
+    <ABRE_CHAVE> (program())* <FECHA_CHAVE>
 }
-
