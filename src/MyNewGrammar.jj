@@ -288,7 +288,7 @@ void parameterList() : {} {
 }
 
 void functionParameterList() : {} {
-     parameter() ( <VIRGULA> parameter() )*
+     parameter() ( <VIRGULA> (LOOKAHEAD(2) functionCall()| parameter() ))*
 }
 
 void parameter() : {} {
