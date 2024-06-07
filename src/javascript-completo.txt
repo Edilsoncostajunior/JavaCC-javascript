@@ -1,3 +1,1 @@
-myFunction();
-
-myFunction(1, a=2, true, "hello");
+int y = -x + 2;

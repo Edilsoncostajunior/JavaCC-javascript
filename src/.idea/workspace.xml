@@ -9,7 +9,6 @@
       <change beforePath="$PROJECT_DIR$/MyNewGrammar.jj" beforeDir="false" afterPath="$PROJECT_DIR$/MyNewGrammar.jj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/if.txt" beforeDir="false" afterPath="$PROJECT_DIR$/if.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/javascript-completo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/javascript-completo.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/while.txt" beforeDir="false" afterPath="$PROJECT_DIR$/while.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +18,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "irllamartins"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Edilsoncostajunior/JavaCC-javascript.git",
+    "accountId": "d29b8b06-6c2d-453d-8a18-785cc3e6a944"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>

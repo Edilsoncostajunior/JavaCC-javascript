@@ -4,9 +4,12 @@ if(x==1){
     }else if(vinigay){
         edilson=pobre
     }
-} else if(x==1&&x>2){
-    console.log()
-} else{
+}
+/*else if(x==1&&x>2){
+  console.log()
+ x=1
+}*/
+else{
     console.log()
 }
 console.log()

@@ -180,7 +180,6 @@ TOKEN : {
   | <CONTINUE: "continue"> { System.out.println("Palavra Reservada: " + image); }
   | <FUNCTION: "function"> { System.out.println("Palavra Reservada: " + image); }
   | <AWAIT: "await"> { System.out.println("Palavra Reservada: " + image); }
-
 }
 
 // Tipos primitivos e literais
@@ -217,6 +216,11 @@ TOKEN:
 	|   <#ESPECIAL:(["_", "$", "ª", "º"])>
 }
 
+// comentarios
+TOKEN : {
+    < MULTI_LINE_COMMENT : "/*" (~["*"])* ( "*" ~["/"] (~["*"])* )* "*" "/" (["\n", "\r"]) > {System.out.println("Comentario em bloco: " + image); }
+   |< SINGLE_LINE_COMMENT : "//" (~["\n", "\r"])* >{ System.out.println("Comentario simples: " + image); }
+}
 
 TOKEN : {
     <CONSTANT : (<DIGIT>)+>
@@ -224,7 +228,7 @@ TOKEN : {
 }
 // Regras gramaticais
 void program() : {} {
-    consoleLog()  | (LOOKAHEAD(2) functionCall() | variableDeclaration() ) | conditional() | whileRepeat() | functionDeclaration()
+    consoleLog()  | (LOOKAHEAD(2) functionCall() | variableDeclaration() ) | conditional() | whileRepeat() | functionDeclaration() | < MULTI_LINE_COMMENT > | <SINGLE_LINE_COMMENT>
 }
 
 void consoleLog() : {} {
@@ -255,11 +259,12 @@ void complementoComparacao():{}{
 }
 
 void avaliarTermoLogico():{}{
-    criarItem() complementoComparacao()
+    criarItem()  complementoComparacao()/*relationalOperator()*/
 }
 
 void criarItem():{} {
-    definirTermo() (("+"|"-") definirTermo() )*
+   // definirTermo() (("+"|"-") definirTermo() )*
+   definirTermo() (("+"|"-") definirTermo() )*
 }
 
 void definirTermo():{} {
@@ -361,7 +366,8 @@ void ifStatement() : {}
 
 void elseIfStatements():{}{
 
-    <ELSE> <IF> <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES> <ABRE_CHAVE> (program())*  <FECHA_CHAVE>
+    <ELSE> <IF> <ABRE_PARENTESES> comparisonSimple() (logisticOperator() comparisonSimple() )* <FECHA_PARENTESES>
+     <ABRE_CHAVE> (program())*  <FECHA_CHAVE>
 }
 
 void elseStatement():{}{
