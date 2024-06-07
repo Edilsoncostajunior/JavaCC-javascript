@@ -1,3 +1,1 @@
-myFunction();
-
-myFunction(1, a=2, true, "hello");
+let x = (9*3)*(-2)+3

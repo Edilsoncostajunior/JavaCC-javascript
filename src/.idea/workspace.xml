@@ -7,7 +7,6 @@
     <list default="true" id="c4ae8fcc-6b9b-4a2a-9095-b04c1158eace" name="Changes" comment="Ajuste          &#10;  Tasks: Tracking Refactoring            &#10;       Errors: None.&#10;  Information:&#10;        - Adicionado capacidade de ler arquivo&#10;        - Comentado a função functionDeclaration()(ela quebra o codigo)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MyNewGrammar.jj" beforeDir="false" afterPath="$PROJECT_DIR$/MyNewGrammar.jj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/if.txt" beforeDir="false" afterPath="$PROJECT_DIR$/if.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/javascript-completo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/javascript-completo.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,18 +17,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "irllamartins"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;irllamartins&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Edilsoncostajunior/JavaCC-javascript.git",
-    "accountId": "d29b8b06-6c2d-453d-8a18-785cc3e6a944"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Edilsoncostajunior/JavaCC-javascript.git&quot;,
+    &quot;accountId&quot;: &quot;d29b8b06-6c2d-453d-8a18-785cc3e6a944&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -42,7 +41,7 @@
   "keyToString": {
     "Application.MyNewGrammar.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging main",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/isley/Documents/ProjetosVSCode/compilador/JavaCC-javascript/src",
     "settings.editor.selected.configurable": "preferences.pluginManager"

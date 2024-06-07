@@ -228,7 +228,7 @@ TOKEN : {
 }
 // Regras gramaticais
 void program() : {} {
-    consoleLog()  | (LOOKAHEAD(2) functionCall() | variableDeclaration() ) | conditional() | whileRepeat() | functionDeclaration() | < MULTI_LINE_COMMENT > | <SINGLE_LINE_COMMENT>
+    consoleLog()| expression()   | (LOOKAHEAD(2) functionCall() | variableDeclaration()  )| conditional() | whileRepeat() | functionDeclaration() | < MULTI_LINE_COMMENT > | <SINGLE_LINE_COMMENT>
 }
 
 void consoleLog() : {} {
@@ -245,13 +245,30 @@ void variableDeclaration() : {} {
 }
 
 void assignment() : {} {
-    (<ATRIBUICAO> expressao() )? (<VIRGULA> <IDENTIFIER> (<ATRIBUICAO> expressao())? )*
+   // (<ATRIBUICAO> expressao() )? (<VIRGULA> <IDENTIFIER> (<ATRIBUICAO> expressao())? )*
+   (<ATRIBUICAO> expression() )? (<VIRGULA> <IDENTIFIER> (<ATRIBUICAO> expression())? )*
 }
 
 
-void expressao():{}{
+void expression() :{}
+{
+    term() ( ( <MAIS> | <MENOS> ) term() )*
+}
+
+void term() :{}
+{
+   factor() ( ( <ASTERISCO> | <BARRA> | <PORCENTO> )  factor() )*
+}
+
+void factor() :{}
+{
+    //   <NUMBER> /*| <IDENTIFIER>*/ | <ABRE_PARENTESES> expression() <FECHA_PARENTESES>
+  ( <ABRE_PARENTESES>   ["+"|"-"] expression() <FECHA_PARENTESES> ) |    <NUMBER>
+}
+
+/*void expressao():{}{
     incrementoOuDecremento()
-    | avaliarTermoLogico() ( (<AND>|<OR>) avaliarTermoLogico() )*
+    | avaliarTermoLogico() ( logisticOperator() avaliarTermoLogico() )*
 }
 
 void complementoComparacao():{}{
@@ -259,7 +276,7 @@ void complementoComparacao():{}{
 }
 
 void avaliarTermoLogico():{}{
-    criarItem()  complementoComparacao()/*relationalOperator()*/
+    criarItem()  complementoComparacao()
 }
 
 void criarItem():{} {
@@ -277,7 +294,7 @@ void itemUnico():{} {
 
 void incrementoOuDecremento():{}{
      (<INCREMENTO> | <DECREMENTO>) <IDENTIFIER>
-}
+}*/
 
 void functionDeclaration() : {} {
     <FUNCTION> <IDENTIFIER> <ABRE_PARENTESES> functionParameterList() <FECHA_PARENTESES> <ABRE_CHAVE> (program())* <FECHA_CHAVE>
@@ -329,9 +346,9 @@ void sum() : {} {
     term() ( ( <MAIS> | <MENOS> ) term() )*
 }
 
-void term() : {} {
+/*void term() : {} {
     unary() ( ( <ASTERISCO> | <BARRA> ) unary() )*
-}
+}*/
 
 void unary() : {} {
     <MENOS> element() | element()
