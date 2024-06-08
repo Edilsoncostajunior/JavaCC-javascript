@@ -315,7 +315,7 @@ void functionDeclaration() : {} {
 }*/
 
 void functionReturn() : {} {
-    <RETURN> ( consoleLog() | value() )?
+    <RETURN> ( LOOKAHEAD(2) consoleLog() | value())
 }
 
 void parameterList() : {} {
@@ -362,7 +362,7 @@ void value() : {} {
 }
 
 int one_line() : {} {
-    program()  { return 0; } | <PONTO_VIRGULA> { return 1; } | { return -1;}
+    program()  { return 0; } | "º" { return 1; } | { return -1;}
 
 }
 
