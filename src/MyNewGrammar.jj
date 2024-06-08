@@ -228,7 +228,17 @@ TOKEN : {
 }
 // Regras gramaticais
 void program() : {} {
-    consoleLog()| expression()   | (LOOKAHEAD(2) functionCall() | variableDeclaration()  )| conditional() | whileRepeat() | functionDeclaration() | < MULTI_LINE_COMMENT > | <SINGLE_LINE_COMMENT>
+    consoleLog()
+    | expression()
+    | (LOOKAHEAD(2) functionCall()
+    | variableDeclaration()  )
+    | conditional()
+    | whileRepeat()
+    | functionDeclaration()
+    | < MULTI_LINE_COMMENT >
+    | <SINGLE_LINE_COMMENT>
+    | functionReturn()
+
 }
 
 void consoleLog() : {} {
@@ -297,16 +307,15 @@ void incrementoOuDecremento():{}{
 }*/
 
 void functionDeclaration() : {} {
-    <FUNCTION> <IDENTIFIER> <ABRE_PARENTESES> [functionParameterList()] <FECHA_PARENTESES> <ABRE_CHAVE> [(program())* functionReturn()] <FECHA_CHAVE>
+    <FUNCTION> <IDENTIFIER> <ABRE_PARENTESES> [functionParameterList()] <FECHA_PARENTESES> <ABRE_CHAVE> (program())*  <FECHA_CHAVE>
 }
-
 
 /*void functionDeclaration() : {} {
     <FUNCTION> <IDENTIFIER> <ABRE_PARENTESES> parameterList() <FECHA_PARENTESES> <ABRE_CHAVE> (assignment() | functionCall())* <FECHA_CHAVE>
 }*/
 
 void functionReturn() : {} {
-    <RETURN> (consoleLog() | value() )?
+    <RETURN> ( consoleLog() | value() )?
 }
 
 void parameterList() : {} {
