@@ -1,1 +1,10 @@
-let x = (9*3)*(-2)+3
+//Dessa forma abaixo não é para pegar de acordo com JS
+//function a(j,2, j(1),a=5, b="joi", c=true, r=undefined, null){}
+
+//Já dessa forma abaixo é para pegar
+//function a(j,a=5, b="joi", c=true, r=undefined){}
+
+//Chamada de função que deve funcionar
+//j(j,2, j(1),a=5, b="joi", c=true, r=undefined, null)
+
+
