@@ -348,9 +348,8 @@ void functionCall() : {} {
     <IDENTIFIER> <ABRE_PARENTESES> (functionParameterList())*  <FECHA_PARENTESES> (<PONTO_VIRGULA>)?
 } */
 
-
 void value() : {} {
-    <NUMBER> | <TRUE> | <FALSE> | <NULL> | <UNDEFINED> | <STRING_LITERAL> | <IDENTIFIER> //| <ABRE_PARENTESES> value() <FECHA_PARENTESES>
+         <NUMBER> | <TRUE> | <FALSE> | <NULL> | <UNDEFINED> | <STRING_LITERAL> | <IDENTIFIER> //| <ABRE_PARENTESES> value() <FECHA_PARENTESES>
 }
 
 int one_line() : {} {
