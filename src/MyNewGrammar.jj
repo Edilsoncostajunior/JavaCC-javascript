@@ -261,7 +261,7 @@ void assignment() : {} {
 }
 
 void expressao():{}{
-    incrementoOuDecremento()
+    preIncrementoOuDecremento()
     | avaliarTermoLogico() ( (<AND>|<OR>) avaliarTermoLogico() )*
 }
 
@@ -284,10 +284,19 @@ void definirTermo():{} {
 
 void itemUnico():{} {
     [("+"|"-")] value()
+    | "(" expressao() ")"
 }
 
-void incrementoOuDecremento():{}{
+void preIncrementoOuDecremento(): {} {
      (<INCREMENTO> | <DECREMENTO>) <IDENTIFIER>
+}
+
+void posIncrementoOuDecremento(): {} {
+      <IDENTIFIER> (<INCREMENTO> | <DECREMENTO>)
+}
+
+void chamadaPrePosIncremento(): {} {
+    preIncrementoOuDecremento() | posIncrementoOuDecremento()
 }
 
 void functionDeclaration() : {} {

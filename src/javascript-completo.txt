@@ -1,2 +1,19 @@
-(x+(2*3*(2/4)))
+function soma(x, y=3){
+    console.log(x)
+    console.log(y)
+
+    if(y == 3){
+        ++x
+        console.log(x)
+        x++
+        console.log(x)
+        w = x
+    }
+
+    return x + y
+}
+
+const func = await soma()
+
+console.log(func)
 
