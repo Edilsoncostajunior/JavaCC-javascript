@@ -236,7 +236,7 @@ void program() : {} {
     | conditional()
     | whileRepeat()
     | functionDeclaration()
-    | < MULTI_LINE_COMMENT >
+    | <MULTI_LINE_COMMENT>
     | <SINGLE_LINE_COMMENT>
     | functionReturn()
     | importDeclaration()
@@ -266,7 +266,7 @@ void expressao():{}{
 }
 
 void complementoComparacao():{}{
-    [ (<MENOR>| <MAIOR> |<MENOR_IGUAL> |<MAIOR_IGUAL> |<IGUAL>|<DIFERENTE>) criarItem() ]
+    [ (<MENOR>| <MAIOR> |<MENOR_IGUAL> |<MAIOR_IGUAL> |<IGUAL>|<DIFERENTE>|<ESTRITAMENTE_IGUAL> |<ESTRITAMENTE_DIFERENTE> ) criarItem() ]
 }
 
 void avaliarTermoLogico():{}{
@@ -274,16 +274,16 @@ void avaliarTermoLogico():{}{
 }
 
 void criarItem():{} {
-   definirTermo() (("+"|"-") definirTermo() )*
+   definirTermo() ((<MAIS>|<MENOS>) definirTermo() )*
 }
 
 void definirTermo():{} {
-    itemUnico() (("*"|"/"|"%") itemUnico() )*
+    itemUnico() ((<ASTERISCO> |<BARRA> |<PORCENTO> ) itemUnico() )*
 }
 
 void itemUnico():{} {
-    [("+"|"-")] value()
-    | "(" expressao() ")"
+    [(<MAIS>|<MENOS>)] value()
+    | <ABRE_PARENTESES> expressao() <FECHA_PARENTESES>
 }
 
 void preIncrementoOuDecremento(): {} {
@@ -364,24 +364,8 @@ int one_line() : {} {
 
 }
 
-void sum() : {} {
-    term() ( ( <MAIS> | <MENOS> ) term() )*
-}
-
-void term() : {} {
-    unary() ( ( <ASTERISCO> | <BARRA> ) unary() )*
-}
-
-void unary() : {} {
-    <MENOS> element() | element()
-}
-
-void element() : {} {
-    <CONSTANT> | <ABRE_PARENTESES> sum() <FECHA_PARENTESES>
-}
-
 void relationalOperator():{}{
-   [(<MAIOR> | <MAIOR_IGUAL> | <MENOR> |<MENOS_IGUAL>| <IGUAL> | <DIFERENTE> |<ESTRITAMENTE_DIFERENTE>)]  value()
+   [(<MAIOR> | <MAIOR_IGUAL> | <MENOR> |<MENOS_IGUAL>| <IGUAL> | <DIFERENTE> |<ESTRITAMENTE_DIFERENTE>|<ESTRITAMENTE_IGUAL> )]  value()
 }
 
 void logisticOperator():{}{
@@ -416,7 +400,7 @@ void elseStatement():{}{
 
 void whileRepeat():{}{
     <WHILE>  <ABRE_PARENTESES>  comparisonSimple() (logisticOperator() comparisonSimple() )*  <FECHA_PARENTESES>
-    <ABRE_CHAVE> (program())* <FECHA_CHAVE>
+    <ABRE_CHAVE> (program() | <BREAK>)*  <FECHA_CHAVE>
 }
 
 void importDeclaration():{} {

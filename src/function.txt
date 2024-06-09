@@ -8,12 +8,14 @@
 
 
 // é para pegar dessa forma abaixo
-function j(){
-    while(true){
+  function j(){
+  while(true){
         return b
         console.log()
         j()
+        break
     }
+
     return a
 }
 
