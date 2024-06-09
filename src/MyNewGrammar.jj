@@ -186,7 +186,7 @@ TOKEN : {
 TOKEN : {
     <STRING_LITERAL: "\"" (~["\"","\\"] | "\\" ["\"","\\","b","f","n","r","t"])* "\"" |
                      "'" (~["'","\\"] | "\\" ["'","\\","b","f","n","r","t"])* "'"> { System.out.println("String Literal: " + image); }
-  | <NUMBER: (["0"-"9"])+ ("." (["0"-"9"])+)? > { System.out.println("Número: " + image); }
+  | <NUMBER: (["0"-"9"])* "." (["0"-"9"])+ | (["0"-"9"])+ > { System.out.println("Número: " + image); }
   | <BIGINT: (["0"-"9"])+ "n"> { System.out.println("BigInt: " + image); }
   | <UNDEFINED: "undefined"> { System.out.println("Tipo Undefined: " + image); }
   | <NULL: "null"> { System.out.println("Palavra Reservada: " + image); }
@@ -229,15 +229,15 @@ TOKEN : {
 // Regras gramaticais
 void program() : {} {
     consoleLog()
-    | expression()
     | (LOOKAHEAD(2) functionCall()
-    | variableDeclaration()  )
+    | LOOKAHEAD(2) variableDeclaration() | expressao())
     | conditional()
     | whileRepeat()
     | functionDeclaration()
     | < MULTI_LINE_COMMENT >
     | <SINGLE_LINE_COMMENT>
     | functionReturn()
+
 
 }
 
@@ -255,30 +255,12 @@ void variableDeclaration() : {} {
 }
 
 void assignment() : {} {
-   // (<ATRIBUICAO> expressao() )? (<VIRGULA> <IDENTIFIER> (<ATRIBUICAO> expressao())? )*
-   (<ATRIBUICAO> expression() )? (<VIRGULA> <IDENTIFIER> (<ATRIBUICAO> expression())? )*
+    (<ATRIBUICAO> expressao() )? (<VIRGULA> <IDENTIFIER> (<ATRIBUICAO> expressao())? )*
 }
 
-
-void expression() :{}
-{
-    term() ( ( <MAIS> | <MENOS> ) term() )*
-}
-
-void term() :{}
-{
-   factor() ( ( <ASTERISCO> | <BARRA> | <PORCENTO> )  factor() )*
-}
-
-void factor() :{}
-{
-    //   <NUMBER> /*| <IDENTIFIER>*/ | <ABRE_PARENTESES> expression() <FECHA_PARENTESES>
-  ( <ABRE_PARENTESES>   ["+"|"-"] expression() <FECHA_PARENTESES> ) |    <NUMBER>
-}
-
-/*void expressao():{}{
+void expressao():{}{
     incrementoOuDecremento()
-    | avaliarTermoLogico() ( logisticOperator() avaliarTermoLogico() )*
+    | avaliarTermoLogico() ( (<AND>|<OR>) avaliarTermoLogico() )*
 }
 
 void complementoComparacao():{}{
@@ -286,7 +268,7 @@ void complementoComparacao():{}{
 }
 
 void avaliarTermoLogico():{}{
-    criarItem()  complementoComparacao()
+    criarItem()  complementoComparacao()/*relationalOperator()*/
 }
 
 void criarItem():{} {
@@ -304,7 +286,7 @@ void itemUnico():{} {
 
 void incrementoOuDecremento():{}{
      (<INCREMENTO> | <DECREMENTO>) <IDENTIFIER>
-}*/
+}
 
 void functionDeclaration() : {} {
     <FUNCTION> <IDENTIFIER> <ABRE_PARENTESES> [functionParameterList()] <FECHA_PARENTESES> <ABRE_CHAVE> (program())*  <FECHA_CHAVE>
@@ -358,11 +340,17 @@ void functionCall() : {} {
 } */
 
 void value() : {} {
-         <NUMBER> | <TRUE> | <FALSE> | <NULL> | <UNDEFINED> | <STRING_LITERAL> | <IDENTIFIER> //| <ABRE_PARENTESES> value() <FECHA_PARENTESES>
+    <NUMBER>
+    | <TRUE>
+    | <FALSE>
+    | <NULL>
+    | <UNDEFINED>
+    | <STRING_LITERAL>
+    | <IDENTIFIER> //| <ABRE_PARENTESES> value() <FECHA_PARENTESES>
 }
 
 int one_line() : {} {
-    program()  { return 0; } | "º" { return 1; } | { return -1;}
+    program()  { return 0; } | "end" { return 1; } | { return -1;}
 
 }
 
@@ -370,9 +358,9 @@ void sum() : {} {
     term() ( ( <MAIS> | <MENOS> ) term() )*
 }
 
-/*void term() : {} {
+void term() : {} {
     unary() ( ( <ASTERISCO> | <BARRA> ) unary() )*
-}*/
+}
 
 void unary() : {} {
     <MENOS> element() | element()

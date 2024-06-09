@@ -5,10 +5,10 @@ if(x==1){
         edilson=pobre
     }
 }
-/*else if(x==1&&x>2){
+else if(x==1&&x>2){
   console.log()
  x=1
-}*/
+}
 else{
     console.log()
 }
