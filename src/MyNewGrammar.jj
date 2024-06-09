@@ -180,6 +180,8 @@ TOKEN : {
   | <CONTINUE: "continue"> { System.out.println("Palavra Reservada: " + image); }
   | <FUNCTION: "function"> { System.out.println("Palavra Reservada: " + image); }
   | <AWAIT: "await"> { System.out.println("Palavra Reservada: " + image); }
+  | <IMPORT: "import" > { System.out.println("Palavra Reservada: " + image);}
+  | <FROM: "from" > { System.out.println("Palavra Reservada: " + image);}
 }
 
 // Tipos primitivos e literais
@@ -237,7 +239,7 @@ void program() : {} {
     | < MULTI_LINE_COMMENT >
     | <SINGLE_LINE_COMMENT>
     | functionReturn()
-
+    | importDeclaration()
 
 }
 
@@ -407,4 +409,17 @@ void elseStatement():{}{
 void whileRepeat():{}{
     <WHILE>  <ABRE_PARENTESES>  comparisonSimple() (logisticOperator() comparisonSimple() )*  <FECHA_PARENTESES>
     <ABRE_CHAVE> (program())* <FECHA_CHAVE>
+}
+
+void importDeclaration():{} {
+   <IMPORT> importClause() <FROM> <STRING_LITERAL> (<PONTO_VIRGULA>)?
+}
+
+void importClause():{}{
+    <IDENTIFIER>
+    | <ABRE_CHAVE> functionList() <FECHA_CHAVE>
+}
+
+void functionList():{} {
+    <IDENTIFIER> ( <VIRGULA> <IDENTIFIER> )*
 }
