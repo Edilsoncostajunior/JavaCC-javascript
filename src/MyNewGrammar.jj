@@ -220,8 +220,8 @@ TOKEN:
 
 // comentarios
 TOKEN : {
-    < MULTI_LINE_COMMENT : "/*" (~["*"])* ( "*" ~["/"] (~["*"])* )* "*" "/" (["\n", "\r"]) > {System.out.println("Comentario em bloco: " + image); }
-   |< SINGLE_LINE_COMMENT : "//" (~["\n", "\r"])* >{ System.out.println("Comentario simples: " + image); }
+    <MULTI_LINE_COMMENT : "/*" ( ~["*"] | "*" ~["/"] )* "*/" > { System.out.println("Comentario em bloco: " + image); }
+   |<SINGLE_LINE_COMMENT : "//" (~["\n", "\r"])* >{ System.out.println("Comentario simples: " + image); }
 }
 
 TOKEN : {
@@ -262,7 +262,7 @@ void assignment() : {} {
 
 void expressao():{}{
     incrementoOuDecremento()
-    | avaliarTermoLogico() ( (<AND>|<OR>) avaliarTermoLogico() )*
+    | avaliarTermoLogico() ( logisticOperator() avaliarTermoLogico() )*
 }
 
 void complementoComparacao():{}{
@@ -270,11 +270,10 @@ void complementoComparacao():{}{
 }
 
 void avaliarTermoLogico():{}{
-    criarItem()  complementoComparacao()/*relationalOperator()*/
+    criarItem()  complementoComparacao()
 }
 
 void criarItem():{} {
-   // definirTermo() (("+"|"-") definirTermo() )*
    definirTermo() (("+"|"-") definirTermo() )*
 }
 
