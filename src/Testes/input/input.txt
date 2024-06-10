@@ -1,9 +1,9 @@
-//let person = prompt("Please enter your name", "Harry Potter")
-//let person = prompt("Please enter your name")
-//let person = prompt(12)
-//let person = prompt(,12)
-// let person = prompt()
-//let a, d= 2,c,d="asdasd"
+prompt("Please enter your name", "Harry Potter")
+prompt("Please enter your name")
+prompt(12)
+prompt(,12)
+prompt()
+let a, d= 2,c,d="asdasd"
 let b
 prompt("adadsas")
 console.log()

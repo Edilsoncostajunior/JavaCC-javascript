@@ -13,7 +13,6 @@ function abc(a,b){
 
 abc(a,b)
 
-const x = await abc(a,b)
 
 function teste(x = 2){
     while(x < 7){

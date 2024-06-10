@@ -10,6 +10,5 @@ if(v==="verdade"&& t==true){
     let f ="e falso"
      v = t+f
 }
---a
-a++
+  c++
 console.log()

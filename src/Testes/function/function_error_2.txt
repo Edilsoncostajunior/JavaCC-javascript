@@ -11,4 +11,4 @@ async function abcd(d){
 
 let d = 9
 
-const func = await abcd(d)
+const func = abcd(d)
