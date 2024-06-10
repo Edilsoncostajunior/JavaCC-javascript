@@ -234,11 +234,6 @@ void variableDeclaration() : {} {
 
 void assignment() : {} {
   (<ATRIBUICAO> expressao()  )? (<VIRGULA> <IDENTIFIER> (<ATRIBUICAO> expressao())? )*
- /*LOOKAHEAD(2)
-    <ATRIBUICAO> expressao()
-           ( <VIRGULA> <IDENTIFIER> <ATRIBUICAO> expressao() )* |  <ATRIBUICAO> (<AWAIT> | prompt())
- (<ATRIBUICAO>  (expressao()| prompt()))?
-            ( <VIRGULA> <IDENTIFIER> (<ATRIBUICAO> expressao()| prompt())? )**/
 }
 
 void expressao():{}{
