@@ -8,7 +8,7 @@ let b = 25
 
 if (b > 30) {
   console.log("If b ok")
-
+}
 let c = 25, d = 30
 
 if (c > 30) {

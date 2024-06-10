@@ -372,7 +372,7 @@ int one_line() : {} {
 }
 
 void relationalOperator():{}{
-   [(<MAIOR> | <MAIOR_IGUAL> | <MENOR> |<MENOS_IGUAL>| <IGUAL> | <DIFERENTE> |<ESTRITAMENTE_DIFERENTE>|<ESTRITAMENTE_IGUAL> )]  value()
+   [(<MAIOR> | <MAIOR_IGUAL> | <MENOR> |<MENOR_IGUAL> |<MENOS_IGUAL>| <IGUAL> | <DIFERENTE> |<ESTRITAMENTE_DIFERENTE>|<ESTRITAMENTE_IGUAL> )]  value()
 }
 
 void logisticOperator():{}{
