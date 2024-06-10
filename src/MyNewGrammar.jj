@@ -231,8 +231,8 @@ TOKEN : {
 // Regras gramaticais
 void program() : {} {
     consoleLog()
-    | (LOOKAHEAD(2) functionCall()
-    | LOOKAHEAD(2) variableDeclaration() | expressao())
+    | (LOOKAHEAD(2) functionCall() | LOOKAHEAD(2) chamadaPrePosIncremento()
+    | LOOKAHEAD(2) variableDeclaration() | expressao() )
     | conditional()
     | whileRepeat()
     | functionDeclaration()
@@ -241,10 +241,11 @@ void program() : {} {
     | functionReturn()
     | importDeclaration()
 
+
 }
 
 void consoleLog() : {} {
-    <CONSOLE> <PONTO> <LOG> <ABRE_PARENTESES> argumentList() <FECHA_PARENTESES>
+    <CONSOLE> <PONTO> <LOG> <ABRE_PARENTESES> argumentList() <FECHA_PARENTESES>(<PONTO_VIRGULA>)?
 }
 
 void argumentList() : {} {
@@ -252,7 +253,7 @@ void argumentList() : {} {
 }
 
 void variableDeclaration() : {} {
-    ( <LET> | <VAR> | <CONST> )? <IDENTIFIER> assignment()
+    ( <LET> | <VAR> | <CONST> )? <IDENTIFIER> assignment() (<PONTO_VIRGULA>)?
 
 }
 
@@ -261,8 +262,7 @@ void assignment() : {} {
 }
 
 void expressao():{}{
-    preIncrementoOuDecremento()
-    | avaliarTermoLogico() ( logisticOperator() avaliarTermoLogico() )*
+   avaliarTermoLogico() ( logisticOperator() avaliarTermoLogico() )*
 }
 
 void complementoComparacao():{}{

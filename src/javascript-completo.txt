@@ -15,5 +15,7 @@ function j(){
         console.log()
         j()
     }
+    --a
+    b++
     return a
 }
