@@ -6,9 +6,9 @@ while(false&&true){
 
 }
 if(v==="verdade"&& t==true){
-  /*i  let t = "texto"
+  let t = "texto"
     let f ="e falso"
-     v = t+f*/
+     v = t+f
 }
 --a
 a++
