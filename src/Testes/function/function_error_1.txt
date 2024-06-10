@@ -1,0 +1,10 @@
+function abc(){
+    let a = x
+    if(a ==3 ){
+        console.log("a")
+    } else if(b == 2){
+        console.log("b")
+    } else {
+        console.log("c")
+    }
+}

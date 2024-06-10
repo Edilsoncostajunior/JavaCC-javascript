@@ -1,0 +1,9 @@
+let a = 18, b = 23
+
+if (a >= 18) {
+  console.log("If a ok")
+}
+
+if (b <= 23){
+    console.log("If b ok")
+}

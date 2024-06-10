@@ -1,0 +1,6 @@
+if(a){} else {}
+
+let a = 5
+const b = 7
+var c = 9
+

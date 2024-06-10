@@ -1,0 +1,36 @@
+function abc(a,b){
+    let a = x
+    if(a ==3 ){
+        console.log("a")
+    } else if(b == 2){
+        console.log("b")
+    } else {
+        console.log("c")
+    }
+
+    return a + b
+}
+
+abc(a,b)
+
+const x = await abc(a,b)
+
+function teste(x = 2){
+    while(x < 7){
+        if (x == 3){
+            console.log("a")
+        } else if (x == 2){
+            console.log("b")
+        } else if (x == 1){
+            console.log("c")
+        } else if (x == 1){
+              console.log("c")
+        } else if (x == 1){
+             console.log("c")
+        } else if (x == 1){
+              console.log("c")
+        } else {
+              console.log("else")
+        }
+    }
+}

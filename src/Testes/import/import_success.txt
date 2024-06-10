@@ -1,0 +1,5 @@
+import func from './MyFunc'
+import {abc} from './alf'
+import {abc, ab} from './Alf'
+import {abc} from 'alf'
+import {abc, ab} from 'alf'

@@ -1,0 +1,5 @@
+if(a == 3){} else {console.log("a 3")}
+
+if(b > 1){} else { let a = 9}
+
+if(c > 1){} else { const a = 9}
