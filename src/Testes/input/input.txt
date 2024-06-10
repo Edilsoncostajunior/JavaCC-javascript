@@ -1,0 +1,6 @@
+ let person = prompt("Please enter your name", "Harry Potter");
+//let person = prompt("Please enter your name");
+//let person = prompt(12);
+//let person = prompt(,12);
+let person = prompt();
+console.log()

@@ -232,7 +232,7 @@ TOKEN : {
 void program() : {} {
     consoleLog()
     | (LOOKAHEAD(2) functionCall() | LOOKAHEAD(2) chamadaPrePosIncremento()
-    | LOOKAHEAD(2) variableDeclaration() | expressao() )
+    | LOOKAHEAD(2) variableDeclaration() | expressao())
     | conditional()
     | whileRepeat()
     | functionDeclaration()
@@ -245,7 +245,11 @@ void program() : {} {
 }
 
 void consoleLog() : {} {
-    <CONSOLE> <PONTO> <LOG> <ABRE_PARENTESES> argumentList() <FECHA_PARENTESES>(<PONTO_VIRGULA>)?
+    <CONSOLE> <PONTO> <LOG> <ABRE_PARENTESES> argumentList() <FECHA_PARENTESES>
+}
+
+void prompt() : {} {
+    <PROMPT> <ABRE_PARENTESES> (value())? (<VIRGULA> value())? <FECHA_PARENTESES>
 }
 
 void argumentList() : {} {
@@ -253,12 +257,15 @@ void argumentList() : {} {
 }
 
 void variableDeclaration() : {} {
-    ( <LET> | <VAR> | <CONST> )? <IDENTIFIER> assignment() (<PONTO_VIRGULA>)?
+    ( <LET> | <VAR> | <CONST> )? <IDENTIFIER> assignment()  /*(<PONTO_VIRGULA>)?*/
 
 }
 
 void assignment() : {} {
-    (<ATRIBUICAO> expressao() )? (<VIRGULA> <IDENTIFIER> (<ATRIBUICAO> expressao())? )*
+  // (  (<ATRIBUICAO> expressao()  )? (<VIRGULA> <IDENTIFIER> (<ATRIBUICAO> expressao())? )*) | <ATRIBUICAO> prompt()
+ LOOKAHEAD(2)
+    <ATRIBUICAO> expressao()
+           ( <VIRGULA> <IDENTIFIER> <ATRIBUICAO> expressao() )* | <ATRIBUICAO> prompt()
 }
 
 void expressao():{}{
